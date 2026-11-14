@@ -297,8 +297,18 @@ def sheet_url(key: str) -> str:
 
 
 @st.cache_data(ttl=config.CACHE_SECONDS, show_spinner=False)
+def _load_cached(key: str, url: str) -> TabResult:
+    return load_tab_uncached(key, url)
+
+
 def load_tab(key: str) -> TabResult:
-    return load_tab_uncached(key, sheet_url(key))
+    # The link is part of the cache key, so changing a link (in config.py or in
+    # Streamlit secrets) takes effect right away instead of after 10 minutes.
+    return _load_cached(key, sheet_url(key))
+
+
+def clear_cache() -> None:
+    _load_cached.clear()
 
 
 def load_all() -> dict[str, TabResult]:

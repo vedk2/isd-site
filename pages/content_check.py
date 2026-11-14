@@ -10,8 +10,8 @@ from content import (
     SITE_TEXT_OPTIONAL,
     find_placeholders,
     is_placeholder,
+    clear_cache,
     load_all,
-    load_tab,
     photo_path,
     upcoming_events,
 )
@@ -21,7 +21,7 @@ ui.say("This page is for ISD board members. It shows whether the website is read
        "and lists anything in the Sheet that needs fixing. Edits to the Sheet show up within about 10 minutes.")
 
 if st.button("Check the Sheet again now", icon=":material/refresh:"):
-    load_tab.clear()
+    clear_cache()
     st.rerun()
 
 results = load_all()
