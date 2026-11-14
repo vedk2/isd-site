@@ -2,6 +2,8 @@
 
 A Streamlit site for [Illini Service Dogs](https://www.illiniservicedogs.com) (ISD), a UIUC nonprofit and student org that trains mobility service dogs and places them free of charge. Built as a BUS 401 Purpose Project by Ved Kulkarni and Nithin Raj (Fall 2026).
 
+**Live site:** https://illini-service-dogs.streamlit.app (Streamlit Community Cloud, deployed from `main`, Python 3.11)
+
 **Board members:** you don't need this file. Read [HANDOFF_GUIDE.md](HANDOFF_GUIDE.md) instead.
 
 ## The one design rule
@@ -112,6 +114,8 @@ pytest
 4. Deploy. Every push to `main` redeploys automatically.
 
 Changing a Sheet link later only takes an edit in **App → Settings → Secrets**, with no code change.
+
+**Handing over ownership:** transfer the repo on GitHub (**Settings → Transfer ownership**) to the ISD account. Then have ISD sign in to share.streamlit.io with that account and redeploy from the transferred repo. Use the same app URL after deleting the old app, or a new one. Finally, remove the student accounts.
 
 Free apps go to sleep after a stretch with no visitors and take a few seconds to wake up. Linking the site from illiniservicedogs.com keeps it busier.
 

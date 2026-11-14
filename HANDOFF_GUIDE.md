@@ -10,10 +10,10 @@ Fill this table in at handoff and keep it current when board members change.
 
 | What | Where | Who has access |
 |---|---|---|
-| The website | `https://__________.streamlit.app` | Anyone (it's public) |
+| The website | https://illini-service-dogs.streamlit.app | Anyone (it's public) |
 | The Google Sheet (all the words, dogs, events) | Link: `__________` | ISD Google account + board members |
-| Dog photos and the code (GitHub) | `https://github.com/__________` | ISD GitHub account + tech lead |
-| Hosting (Streamlit Community Cloud) | https://share.streamlit.io | Sign in with the ISD GitHub account |
+| Dog photos and the code (GitHub) | https://github.com/vedk2/isd-site (move to an ISD account at handoff) | ISD GitHub account + tech lead |
+| Hosting (Streamlit Community Cloud) | https://share.streamlit.io (app name: illini-service-dogs) | Sign in with the GitHub account that owns the code |
 
 **At least two board members should always have access to each account.** When someone graduates, add their replacement before removing them.
 
