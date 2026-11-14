@@ -143,3 +143,14 @@ def test_placeholders_and_urls():
 def test_photo_path_cannot_escape_images_folder():
     assert content.photo_path("../config.py") is None
     assert content.photo_path("missing.jpg") is None
+
+
+def test_site_text_missing_live_key_falls_back_to_backup(monkeypatch):
+    live_csv = "key,value\norg_name,Live Name\n"
+    monkeypatch.setattr(content, "_fetch_text", lambda url, timeout: live_csv)
+    monkeypatch.setattr(content, "sheet_url", lambda key: "https://example.com/site_text.csv")
+    content.clear_cache()
+    text = content.get_site_text_map()
+    assert text["org_name"] == "Live Name"                       # live wins
+    assert text["tagline"].startswith("Mobilizing the world")   # missing live key -> backup
+    content.clear_cache()

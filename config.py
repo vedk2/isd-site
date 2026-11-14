@@ -15,6 +15,7 @@ IMAGES_DIR = ROOT / "static" / "images"  # served at app/static/images/ (see .st
 # ISD's content Sheet: https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/edit
 # Each link downloads one tab as CSV. The Sheet is shared "Anyone with the link: Viewer".
 # A Streamlit secret with the same name overrides these (see secrets.toml.example).
+SHEET_EDIT_URL = "https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/edit"
 _SHEET = "https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/export?format=csv&gid="
 SHEET_URLS = {
     "dogs": _SHEET + "1711629647",

@@ -66,3 +66,25 @@ volunteer_text,"Open advisory board positions are listed below. To apply, email 
 partner_text,Other RSOs and local groups can team up with ISD to co-host a fundraiser or a Pet-A-Pup style event.,Get Involved
 events_empty_text,No upcoming events right now. Follow us on Instagram for updates.,Events and Home when there are no events
 chatbot_disclaimer,"Answers come from ISD's FAQ, not a live person. For anything else, email us.",Ask ISD
+home_dogs_lead,Every one of them will be placed free of charge with a partner who needs them.,"Home, under 'Meet the dogs in training'"
+home_callout_title,Every dog is a gift,"Home, navy box heading"
+dogs_intro,"Our service dogs in training spend about two years learning the skills their future partner will need. Follow their progress on Instagram, or sponsor one to help cover food, vet care and training.","Meet the Dogs, top"
+graduates_intro,These dogs finished their training and now work full time with their partners.,"Meet the Dogs, Graduates"
+gallery_intro,"Puppies, training days and the people who make it happen.","Meet the Dogs, photo grid"
+giving_levels_intro,No amount is too small. Here's what each gift pays for.,"Sponsor & Donate, giving levels"
+apply_form_note,The application is a secure form hosted by ISD. This website doesn't collect or store any of your information.,"Apply, 'Ready to apply?' box"
+involved_intro,"Foster a future service dog, join as a UIUC student, lend your expertise, or partner with us.","Get Involved, top"
+events_intro,"Pet-A-Pups, fundraisers and campus events. Come meet the dogs!","Events, top"
+news_intro,"Placements, new puppies and milestones from Illini Service Dogs.","News, top"
+story_subtitle,One girl. One dog. One dream.,"About, Our story subtitle"
+faq_intro,"Can't find your answer? Try Ask ISD, or email us.","FAQ, top"
+vest_intro,"Service dogs are working. When you meet a service dog team, the kindest thing you can do is let the dog do its job. Here's what to know, straight from our FAQ.","Respect the Vest, top"
+vest_photo,gallery-03.jpg,"Respect the Vest, photo (file in static/images)"
+vest_photo_alt,Two ISD members in 'Respect the Vest' shirts holding puppies in front of Foellinger Auditorium,"Respect the Vest, photo description"
+vest_body,"Our dogs wear their vest when they're working. A working dog needs to stay focused on its handler, so please don't pet, call or feed it. Talk to the person, not the dog.
+
+When the vest comes off, our dogs know it's time to play. That's the right moment to ask whether you can say hi.","Respect the Vest, next to the photo"
+partner_idea_1,"Co-host a Pet-A-Pup: Bring our dogs in training to your RSO's event. Members get to meet the pups, and donations support ISD.","Get Involved, partner idea 1 (Title: text)"
+partner_idea_2,"Fundraise together: Team up on a fundraiser and put the proceeds toward food, vet care and training for a dog in our program.","Get Involved, partner idea 2 (Title: text)"
+partner_idea_3,,"Get Involved, partner idea 3 (optional; Title: text)"
+qr_file,qr-website.png,"Get Involved, QR code image (file in static/images)"

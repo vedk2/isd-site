@@ -3,7 +3,7 @@ import streamlit as st
 import ui
 from content import FAQ_CATEGORIES, get_faq
 
-ui.page_head("Frequently Asked Questions", "Can't find your answer? Try Ask ISD, or email us.")
+ui.page_head("Frequently Asked Questions", ui.text("faq_intro", "Can't find your answer? Try Ask ISD, or email us."))
 faq = get_faq()
 if faq.empty:
     ui.say("The FAQ is being updated.")

@@ -18,7 +18,7 @@ from __future__ import annotations
 import io
 import urllib.request
 from dataclasses import dataclass, field
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Callable
 
@@ -35,6 +35,7 @@ import config
 FAQ_CATEGORIES = {
     "applying": "Applying for a service dog",
     "service_dogs": "About service dogs",
+    "etiquette": "Service dog etiquette and the law",
     "donating": "Donating",
     "sponsoring": "Sponsoring a dog",
     "puppy_raising": "Puppy raising",
@@ -64,10 +65,11 @@ SITE_TEXT_KEYS = (
     "apply_step_1", "apply_step_2", "apply_step_3", "apply_step_4", "apply_step_5",
     "puppy_raiser_text", "puppy_photo", "puppy_photo_alt", "student_membership_text", "volunteer_text", "partner_text",
     "events_empty_text", "chatbot_disclaimer",
+    "home_dogs_lead", "home_callout_title", "dogs_intro", "graduates_intro", "gallery_intro", "giving_levels_intro", "apply_form_note", "involved_intro", "events_intro", "news_intro", "story_subtitle", "faq_intro", "vest_intro", "vest_photo", "vest_photo_alt", "vest_body", "partner_idea_1", "partner_idea_2", "qr_file",
 )
 
 # Keys that may be blank on purpose (the related section just hides).
-SITE_TEXT_OPTIONAL = {"newsletter_url", "paypal_url"}
+SITE_TEXT_OPTIONAL = {"newsletter_url", "paypal_url", "partner_idea_3"}
 
 
 @dataclass
@@ -88,6 +90,7 @@ class TabResult:
     source: str                                    # "live", "backup" or "missing"
     notes: list[str] = field(default_factory=list)    # plain-English problems
     skipped: list[str] = field(default_factory=list)  # "Row 4: reason"
+    loaded_at: datetime = field(default_factory=lambda: datetime.now(timezone.utc))
 
 
 # --------------------------------------------------------------------------
@@ -397,6 +400,7 @@ def load_tab(key: str) -> TabResult:
 
 def clear_cache() -> None:
     _load_cached.clear()
+    _backup_site_text.clear()
 
 
 def load_all() -> dict[str, TabResult]:
@@ -407,9 +411,17 @@ def load_all() -> dict[str, TabResult]:
 # What pages use
 # --------------------------------------------------------------------------
 
-def get_site_text_map() -> dict[str, str]:
-    rows = load_tab("site_text").rows
+@st.cache_data(ttl=config.CACHE_SECONDS, show_spinner=False)
+def _backup_site_text() -> dict[str, str]:
+    rows = load_tab_uncached("site_text", "").rows
     return {r["key"]: r["value"] for r in rows.to_dict("records")}
+
+
+def get_site_text_map() -> dict[str, str]:
+    """SiteText as {key: value}. A key missing from the live Sheet falls back to backup/,
+    so new features don't show blank text before someone adds their row to the Sheet."""
+    live = {r["key"]: r["value"] for r in load_tab("site_text").rows.to_dict("records")}
+    return {**_backup_site_text(), **live}
 
 
 def get_site_text(key: str, default: str = "") -> str:

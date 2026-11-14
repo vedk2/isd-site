@@ -4,13 +4,14 @@ from datetime import date
 
 import streamlit as st
 
+import config
 import ui
 from content import (
     SITE_TEXT_KEYS,
     SITE_TEXT_OPTIONAL,
     find_placeholders,
-    is_placeholder,
     clear_cache,
+    is_placeholder,
     load_all,
     photo_path,
     upcoming_events,
@@ -19,11 +20,23 @@ from content import (
 ui.page_head("Content Check", "For ISD board members: whether the website is reading the Google Sheet, and anything "
              "in the Sheet that needs fixing. Edits to the Sheet show up within about 10 minutes.")
 
-if st.button("Check the Sheet again now", icon=":material/refresh:"):
-    clear_cache()
-    st.rerun()
+c1, c2 = st.columns(2)
+with c1:
+    if st.button("Check the Sheet again now", icon=":material/refresh:", width="stretch"):
+        clear_cache()
+        st.rerun()
+with c2:
+    st.link_button("Open the Google Sheet", config.SHEET_EDIT_URL, icon=":material/table:", width="stretch")
 
 results = load_all()
+oldest = min(r.loaded_at for r in results.values())
+try:
+    from zoneinfo import ZoneInfo
+    t = oldest.astimezone(ZoneInfo("America/Chicago"))
+    stamp = f"{t.hour % 12 or 12}:{t:%M %p} Central on {t:%b} {t.day}"
+except Exception:
+    stamp = oldest.strftime("%H:%M UTC")
+st.caption(f"Content last loaded at {stamp}. The site re-reads the Sheet every 10 minutes.")
 
 
 def checklist(title: str, items: list[str], ok_text: str) -> None:

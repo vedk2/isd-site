@@ -31,6 +31,7 @@ nav = {
         st.Page(P["about"], title="About ISD", icon=":material/info:", url_path="about"),
         st.Page(P["news"], title="News", icon=":material/newspaper:", url_path="news"),
         st.Page(P["events"], title="Events", icon=":material/event:", url_path="events"),
+        st.Page(P["vest"], title="Respect the Vest", icon=":material/front_hand:", url_path="respect-the-vest"),
         st.Page(P["faq"], title="FAQ", icon=":material/help:", url_path="faq"),
         st.Page(P["ask"], title="Ask ISD (chat)", icon=":material/chat:", url_path="ask"),
         st.Page(P["check"], title="Content Check (board members)", icon=":material/fact_check:",

@@ -43,8 +43,9 @@ content.py          loads + cleans every Sheet tab, falls back to backup/
 chatbot.py          FAQ matcher (TF-IDF + cosine similarity)
 ui.py               shared HTML blocks: hero, cards, grids, people, logos, gallery, header, footer
 style.py            all custom CSS (fonts, cards, grids, mobile layout) in one place
+static/fonts/       Nunito heading font, hosted with the site (no Google Fonts request)
 pages/              one file per page (Home, Meet the Dogs, Sponsor & Donate, Apply, Get Involved,
-                    About, News, Events, FAQ, Ask ISD, Content Check); pages only render content
+                    About, News, Events, Respect the Vest, FAQ, Ask ISD, Content Check); pages only render content
 backup/             CSV copy of every Sheet tab
 static/images/      every photo and logo, referenced by file name from the Sheet
                     (served at app/static/images/ because server.enableStaticServing is on)
@@ -66,6 +67,8 @@ tests/
 
 Pages call only the `get_*` helpers (`get_dogs()`, `get_faq()`, `get_upcoming_events()`, `get_site_text(key, default)`, ...). `get_site_text` never raises on a missing key.
 
+If a SiteText key is missing from the live Sheet, `get_site_text` uses the value from `backup/site_text.csv`, so a code update that adds a key never shows blank text. Page code also passes a fallback for its intro text.
+
 Leading lines that start with `#` in a CSV are treated as notes and ignored. `backup/faq.csv` uses one to mark the FAQ as a draft for ISD to review.
 
 ### Sheet tabs and columns
@@ -73,7 +76,7 @@ Leading lines that start with `#` in a CSV are treated as notes and ignored. `ba
 | Tab | Columns | Notes |
 |---|---|---|
 | Dogs | name, breed, age, bio, training_stage, photo_file, alt_text, instagram_url, sponsor_link, status | stage is 1 to 4 (names in `config.TRAINING_STAGES`); status is in_training, placed or retired |
-| FAQ | question, answer, category, keywords | category is one of the keys of `content.FAQ_CATEGORIES` (applying, service_dogs, donating, sponsoring, puppy_raising, volunteering, about_isd, general) |
+| FAQ | question, answer, category, keywords | category is one of the keys of `content.FAQ_CATEGORIES` (applying, service_dogs, etiquette, donating, sponsoring, puppy_raising, volunteering, about_isd, general); `etiquette` rows also fill the Respect the Vest page |
 | Events | title, date, start_time, location, description, link | date is YYYY-MM-DD (M/D/YYYY also works); past events hide themselves |
 | SponsorTiers | tier_name, amount, covers, payment_link, sort_order | ISD's giving levels ($1 to $10,000); a level whose amount is a placeholder is hidden |
 | SiteText | key, value, where_it_shows | `where_it_shows` is only a note for editors; the keys the app reads are in `content.SITE_TEXT_KEYS`. `stat_1`..`stat_4` use `number|label` |

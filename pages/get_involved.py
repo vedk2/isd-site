@@ -1,7 +1,7 @@
 import ui
-from content import get_open_roles, get_site_text, safe_url
+from content import get_open_roles, get_site_text, photo_url, safe_url
 
-ui.page_head("Get Involved", "Foster a future service dog, join as a UIUC student, lend your expertise, or partner with us.")
+ui.page_head("Get Involved", ui.text("involved_intro", 'Foster a future service dog, join as a UIUC student, lend your expertise, or partner with us.'))
 
 ui.section("Become a puppy raiser")
 docs = []
@@ -33,10 +33,25 @@ if roles:
 if ui.email_html("careers_email"):
     ui.html_block(f'<p>Send your resume and the position(s) you\'re interested in to {ui.email_html("careers_email")}.</p>')
 
-ui.section("Partner with us")
-partner = ui.text("partner_text")
+ui.section("Partner with us", ui.text("partner_text"))
+ideas = []
+for i in (1, 2, 3):
+    title, _, body = ui.text(f"partner_idea_{i}").partition(":")
+    if title.strip():
+        ideas.append(f'<article class="isd-card"><div class="isd-body"><h3>{ui.esc(title.strip())}</h3>'
+                     f'{ui.paras(body.strip())}</div></article>')
+qr = photo_url(ui.text("qr_file"))
+if qr:
+    ideas.append(
+        f'<article class="isd-card"><div class="isd-body"><h3>Share our website</h3>'
+        f'<img src="{qr}" alt="QR code that opens the Illini Service Dogs website" '
+        f'style="width:150px;height:150px;image-rendering:pixelated">'
+        f'<p>Put this QR code on flyers, slides or the end of a video.</p>'
+        f'<div class="isd-actions"><a href="{qr}" download="ISD-website-QR.png">Download the QR code (PNG)</a></div></div></article>')
+if ideas:
+    ui.html_block(f'<div class="isd-grid isd-grid-wide">{"".join(ideas)}</div>')
 if ui.email_html("contact_email"):
-    ui.html_block(f'{ui.paras(partner)}<p>To plan something together, email {ui.email_html("contact_email")}.</p>')
+    ui.html_block(f'<p>To plan something together, email {ui.email_html("contact_email")}.</p>')
 
 if safe_url(get_site_text("newsletter_url")):
     ui.section("Stay in the loop")

@@ -11,7 +11,7 @@ ui.html_block(f"<div>{give}</div>")
 
 tiers = [t for t in get_sponsor_tiers().to_dict("records") if ui.show(t["amount"])]
 if tiers:
-    ui.section("The impact of your gift", "No amount is too small. Here's what each gift pays for.")
+    ui.section("The impact of your gift", ui.text("giving_levels_intro", "No amount is too small. Here's what each gift pays for."))
     ui.levels(tiers)
 
 if ui.text("sponsor_note"):

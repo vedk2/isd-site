@@ -1,7 +1,7 @@
 import ui
 from content import get_site_text, get_upcoming_events
 
-ui.page_head("Events", "Pet-A-Pups, fundraisers and campus events. Come meet the dogs!")
+ui.page_head("Events", ui.text("events_intro", 'Pet-A-Pups, fundraisers and campus events. Come meet the dogs!'))
 
 events = get_upcoming_events().to_dict("records")
 if events:

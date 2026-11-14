@@ -36,6 +36,7 @@ PAGES = {
     "news": "pages/news.py",
     "about": "pages/about.py",
     "faq": "pages/faq.py",
+    "vest": "pages/respect_the_vest.py",
     "ask": "pages/ask_isd.py",
     "check": "pages/content_check.py",
 }
@@ -43,7 +44,7 @@ PAGES = {
 # Relative links between pages (they work locally and on Streamlit Cloud).
 HREF = {
     "home": "./", "dogs": "dogs", "sponsor": "donate", "apply": "apply", "involved": "get-involved",
-    "events": "events", "news": "news", "about": "about", "faq": "faq", "ask": "ask", "check": "content-check",
+    "events": "events", "news": "news", "about": "about", "faq": "faq", "vest": "respect-the-vest", "ask": "ask", "check": "content-check",
 }
 
 

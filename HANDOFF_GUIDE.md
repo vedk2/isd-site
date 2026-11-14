@@ -80,7 +80,7 @@ Change the number in **training_stage**. The progress bar on their card updates.
 These answers power both the FAQ and the **Ask ISD** chatbot.
 
 - **To edit**, change the text in the **answer** column.
-- **To add**, add a new row with a **question**, an **answer**, and a **category**: `applying`, `service_dogs`, `donating`, `sponsoring`, `puppy_raising`, `volunteering`, `about_isd` or `general`. The FAQ page groups questions by category.
+- **To add**, add a new row with a **question**, an **answer**, and a **category**: `applying`, `service_dogs`, `etiquette`, `donating`, `sponsoring`, `puppy_raising`, `volunteering`, `about_isd` or `general`. The FAQ page groups questions by category.
 - **The keywords column** is how you teach the chatbot. If people ask something in a way the bot doesn't recognize, add their words here, separated by commas. For example: `cost, price, fee, free, afford`.
 
 If the chatbot isn't sure, it never guesses. It tells the visitor to email ContactUs@illiniservicedogs.com. So if the team keeps getting the same question by email, add it to the FAQ.
@@ -126,6 +126,9 @@ Add a row to the **News** tab: **title**, **date** (like `2027-04-18`), **body**
 - **Sponsors** tab: name, website link and (optionally) a logo file.
 - **Gallery** tab: the photo grid on Meet the Dogs. Upload the photo, then add a row with its file name and a one-sentence **alt_text** describing it.
 - **Roles** tab: open volunteer positions on Get Involved. Type `no` in **is_open** to hide a role without deleting it.
+- **Partner ideas:** the cards under "Partner with us" come from SiteText `partner_idea_1` to `partner_idea_3`, written as `Title: description`. Leave one blank to hide it.
+- **QR code:** Get Involved has a downloadable QR code that opens the website. Use it on flyers, slides and the end of videos.
+- **Respect the Vest page:** shows every FAQ row whose category is `etiquette`. Edit those FAQ rows to change it.
 
 ## Change any other words on the site
 

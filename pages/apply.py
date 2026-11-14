@@ -12,7 +12,7 @@ if ui.text("apply_timing_note"):
 
 apply_btn = ui.btn("Open the service dog application", get_site_text("application_url"), external=True)
 if apply_btn:
-    ui.callout("Ready to apply?", "The application is a secure form hosted by ISD. This website doesn't collect or store any of your information.", apply_btn)
+    ui.callout("Ready to apply?", ui.text("apply_form_note", "The application is a secure form hosted by ISD. This website doesn't collect or store any of your information."), apply_btn)
 elif ui.email_html("applicants_email"):
     ui.html_block(f'<p>The online application link is being updated. Email {ui.email_html("applicants_email")}.</p>')
 

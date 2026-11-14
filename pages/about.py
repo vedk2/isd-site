@@ -7,7 +7,7 @@ ui.section("Our mission")
 ui.split(ui.text("mission_photo"), ui.text("mission_photo_alt"),
          ui.paras(ui.text("mission")) + ui.paras(ui.text("mission_how")), reverse=True)
 
-ui.section("How it all started", "One girl. One dog. One dream.")
+ui.section("How it all started", ui.text("story_subtitle", 'One girl. One dog. One dream.'))
 ui.split(ui.text("story_photo"), ui.text("story_photo_alt"), ui.paras(ui.text("founding_story")))
 
 team = get_team().to_dict("records")

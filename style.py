@@ -23,7 +23,11 @@ def apply() -> None:
     st.html(
         f"""
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap');
+        /* Heading font, hosted with the site (static/fonts) so no request goes to Google. */
+        @font-face {{
+            font-family: 'Nunito'; font-style: normal; font-weight: 700 900; font-display: swap;
+            src: url('app/static/fonts/nunito-latin.woff2') format('woff2');
+        }}
         :root {{
             --isd-orange: {orange};
             --isd-navy: {navy};
