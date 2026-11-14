@@ -20,9 +20,10 @@ def test_every_backup_tab_loads(key):
 
 def test_backup_seed_content():
     dogs = load_tab_uncached("dogs", "").rows
-    assert set(dogs["name"]) == {"Millie", "Morrie", "Rory", "Cairo", "Bear"}
+    assert set(dogs[dogs["status"] == "in_training"]["name"]) == {"Millie", "Morrie", "Rory", "Cairo", "Bear"}
+    assert set(dogs[dogs["status"] == "placed"]["name"]) == {"Ike", "Alma", "Maizey", "Abe"}
     faq = load_tab_uncached("faq", "").rows
-    assert 15 <= len(faq) <= 20
+    assert len(faq) >= 25
     text = {r["key"]: r["value"] for r in load_tab_uncached("site_text", "").rows.to_dict("records")}
     for key in content.SITE_TEXT_KEYS:
         assert key in text, key

@@ -31,25 +31,43 @@ import config
 # What each tab must look like
 # --------------------------------------------------------------------------
 
-FAQ_CATEGORIES = ("applying", "donating", "sponsoring", "volunteering", "puppy_raising", "general")
+# FAQ categories, in the order the FAQ page shows them, with their headings.
+FAQ_CATEGORIES = {
+    "applying": "Applying for a service dog",
+    "service_dogs": "About service dogs",
+    "donating": "Donating",
+    "sponsoring": "Sponsoring a dog",
+    "puppy_raising": "Puppy raising",
+    "volunteering": "Joining and volunteering",
+    "about_isd": "About ISD",
+    "general": "General",
+}
+TEAM_BOARDS = {
+    "administrative": "Administrative Board",
+    "executive": "Executive Board",
+    "advisory": "Advisory Board",
+}
 DOG_STATUSES = ("in_training", "placed", "retired")
 
 # SiteText keys the pages look up. Missing ones are listed on Content Check.
 SITE_TEXT_KEYS = (
-    "org_name", "tagline", "hero_headline", "hero_subtext", "mission", "impact_line",
-    "founding_story", "how_we_are_run", "donation_use",
+    "org_name", "tagline", "logo_file", "hero_eyebrow", "hero_headline", "hero_subtext", "hero_photo", "hero_photo_alt",
+    "home_intro", "stat_1", "stat_2", "stat_3", "stat_4", "mission", "mission_how", "mission_photo",
+    "mission_photo_alt", "impact_line", "founding_story", "story_photo", "story_photo_alt", "how_we_are_run",
+    "sponsors_intro", "donation_use", "sponsor_note",
     "contact_email", "donate_email", "applicants_email", "careers_email", "tech_email",
     "address", "facebook_url", "instagram_url",
     "paypal_url", "venmo_url", "amazon_wishlist_url", "check_payable_to", "tax_letter_note",
-    "application_url", "puppy_raiser_form_url", "newsletter_url", "response_time",
+    "application_url", "puppy_raiser_form_url", "puppy_doc_interim_url", "puppy_doc_long_term_url",
+    "puppy_doc_timeline_url", "newsletter_url", "response_time",
     "apply_who_we_serve", "apply_eligibility", "apply_timing_note",
     "apply_step_1", "apply_step_2", "apply_step_3", "apply_step_4", "apply_step_5",
-    "puppy_raiser_text", "student_membership_text", "volunteer_text", "partner_text",
+    "puppy_raiser_text", "puppy_photo", "puppy_photo_alt", "student_membership_text", "volunteer_text", "partner_text",
     "events_empty_text", "chatbot_disclaimer",
 )
 
 # Keys that may be blank on purpose (the related section just hides).
-SITE_TEXT_OPTIONAL = {"newsletter_url"}
+SITE_TEXT_OPTIONAL = {"newsletter_url", "paypal_url"}
 
 
 @dataclass
@@ -115,7 +133,7 @@ def parse_date(value) -> date | None:
 
 
 def photo_path(photo_file) -> Path | None:
-    """Return the image inside images/ if it exists. Only a bare file name is allowed."""
+    """Return the image inside static/images/ if it exists. Only a bare file name is allowed."""
     name = Path(str(photo_file or "").strip()).name
     if not name or name.startswith("."):
         return None
@@ -123,6 +141,12 @@ def photo_path(photo_file) -> Path | None:
     if path.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp", ".gif"} and path.is_file():
         return path
     return None
+
+
+def photo_url(photo_file) -> str:
+    """Web address of an image in static/images/, or "" if the file isn't there."""
+    path = photo_path(photo_file)
+    return f"app/static/images/{path.name}" if path else ""
 
 
 # --------------------------------------------------------------------------
@@ -175,6 +199,55 @@ def _clean_tier(row: dict) -> tuple[dict | None, str]:
     return row, ""
 
 
+def _int_or(value, default: int = 999) -> int:
+    try:
+        return int(float(value))
+    except (TypeError, ValueError):
+        return default
+
+
+def _clean_news(row: dict) -> tuple[dict | None, str]:
+    if not row["title"]:
+        return None, "the news post has no title"
+    when = parse_date(row["date"])
+    if when is None:
+        return None, f'"{row["title"]}" has a date we can\'t read: {row["date"] or "(blank)"}. Use YYYY-MM-DD'
+    row["date"] = when
+    return row, ""
+
+
+def _clean_team(row: dict) -> tuple[dict | None, str]:
+    if not row["name"]:
+        return None, "the person has no name"
+    board = row["board"].lower().split()[0] if row["board"] else ""
+    if board not in TEAM_BOARDS:
+        return None, f'{row["name"]}: board should be administrative, executive or advisory'
+    row["board"] = board
+    row["sort_order"] = _int_or(row["sort_order"])
+    return row, ""
+
+
+def _clean_sponsor(row: dict) -> tuple[dict | None, str]:
+    if not row["name"]:
+        return None, "the sponsor has no name"
+    row["sort_order"] = _int_or(row["sort_order"])
+    return row, ""
+
+
+def _clean_gallery(row: dict) -> tuple[dict | None, str]:
+    if not row["photo_file"]:
+        return None, "the photo_file is empty"
+    row["sort_order"] = _int_or(row["sort_order"])
+    return row, ""
+
+
+def _clean_role(row: dict) -> tuple[dict | None, str]:
+    if not row["title"]:
+        return None, "the role has no title"
+    row["is_open"] = row["is_open"].strip().lower() not in ("no", "n", "false", "closed")
+    return row, ""
+
+
 def _clean_site_text(row: dict) -> tuple[dict | None, str]:
     if not row["key"]:
         return None, "the key column is empty"
@@ -201,6 +274,21 @@ TABS: dict[str, TabSpec] = {
         TabSpec("site_text", "SiteText", "site_text.csv",
                 ("key", "value"),
                 ("key", "value"), _clean_site_text),
+        TabSpec("news", "News", "news.csv",
+                ("title", "date", "body", "photo_file", "alt_text"),
+                ("title", "date"), _clean_news),
+        TabSpec("team", "Team", "team.csv",
+                ("name", "role", "board", "photo_file", "alt_text", "sort_order"),
+                ("name", "board"), _clean_team),
+        TabSpec("sponsors", "Sponsors", "sponsors.csv",
+                ("name", "link", "logo_file", "alt_text", "sort_order"),
+                ("name",), _clean_sponsor),
+        TabSpec("gallery", "Gallery", "gallery.csv",
+                ("photo_file", "alt_text", "caption", "sort_order"),
+                ("photo_file",), _clean_gallery),
+        TabSpec("roles", "Roles", "roles.csv",
+                ("title", "description", "details_link", "is_open"),
+                ("title",), _clean_role),
     )
 }
 
@@ -358,6 +446,33 @@ def upcoming_events(events: pd.DataFrame, today: date | None = None) -> pd.DataF
 
 def get_upcoming_events(today: date | None = None) -> pd.DataFrame:
     return upcoming_events(load_tab("events").rows, today)
+
+
+def _sorted(key: str, by: str = "sort_order") -> pd.DataFrame:
+    rows = load_tab(key).rows
+    return rows.sort_values(by, kind="stable") if not rows.empty else rows
+
+
+def get_news() -> pd.DataFrame:
+    rows = load_tab("news").rows
+    return rows.sort_values("date", ascending=False, kind="stable") if not rows.empty else rows
+
+
+def get_team() -> pd.DataFrame:
+    return _sorted("team")
+
+
+def get_sponsors() -> pd.DataFrame:
+    return _sorted("sponsors")
+
+
+def get_gallery() -> pd.DataFrame:
+    return _sorted("gallery")
+
+
+def get_open_roles() -> pd.DataFrame:
+    rows = load_tab("roles").rows
+    return rows[rows["is_open"]] if not rows.empty else rows
 
 
 def find_placeholders(results: dict[str, TabResult]) -> list[str]:

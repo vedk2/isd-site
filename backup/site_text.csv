@@ -1,13 +1,33 @@
 key,value,where_it_shows
 org_name,Illini Service Dogs,"Header, every page"
 tagline,"Mobilizing the world, four paws at a time.","Header, every page"
-hero_headline,Free mobility service dogs for people with physical disabilities,"Home, big headline"
-hero_subtext,"Illini Service Dogs is a nonprofit and student organization at the University of Illinois. We train mobility service dogs and place them 100% free of charge, funded entirely by donations.","Home, under the headline"
-mission,"We believe that through community education, advocating for disability rights and providing service dogs 100% free of charge, we are making the world a better place, four paws at a time.",Home and About
-impact_line,[ISD to confirm: e.g. XX dogs placed since 2010],Home and Sponsor & Donate
-founding_story,"Illini Service Dogs was founded in 2010 at the University of Illinois Urbana-Champaign by Bridget Evans, inspired by her own service dog, Coal.",About
-how_we_are_run,"ISD is run by three groups: an administrative board, an advisory board, and a student executive board.",About
-donation_use,"ISD is 100% funded by donations. Gifts pay for dog food, vet care, training supplies and toys.",Sponsor & Donate
+logo_file,isd-logo.png,Header logo (file in static/images)
+hero_eyebrow,Free mobility service dogs · Since 2010,"Home, small label above the headline"
+hero_headline,One mission: to mobilize the world,"Home, big headline"
+hero_subtext,"We train mobility service dogs and place them with people with physical disabilities at absolutely no cost, while educating the public on disability culture and rights.","Home, under the headline"
+hero_photo,gallery-02.jpg,"Home, big photo (file in static/images)"
+hero_photo_alt,A black Lab in an orange Illini bandana and ISD vest lying on the sidewalk,"Home, big photo description"
+home_intro,"From providing mobility service dogs at absolutely no cost to educating the public on disability culture and rights, we are passionate students and professionals who volunteer our time and skills to accomplish one mission: mobilizing the world. Our mission ends when the financial barriers to obtaining and owning a high-quality service dog are eliminated and the public's knowledge of the disability community and its rights is second nature.",Home
+stat_1,$0|cost to the person who receives a dog,"Home, number strip (number|label)"
+stat_2,~2 years|to train each service dog,"Home, number strip (number|label)"
+stat_3,"$10–15K|to train one dog, all from donations","Home, number strip (number|label)"
+stat_4,2010|founded at the University of Illinois,"Home, number strip (number|label)"
+mission,"At Illini Service Dogs, our mission is to provide world-class service dogs to individuals who have a physical disability. We believe that through community education, advocating for disability rights and providing service dogs 100% free of charge, we are making the world a better place, four paws at a time.",Home and About
+mission_how,"We do this by giving University of Illinois students the unprecedented opportunity to train service dogs and engage with the disability community. Student members work one-on-one with our service dogs in training and experienced training staff to build the exact skill set the receiving individual needs. Along the way, each student gains a unique perspective on disability culture and rights.",About
+mission_photo,gallery-03.jpg,"About, mission photo"
+mission_photo_alt,Two ISD members in 'Respect the Vest' shirts holding puppies in front of Foellinger Auditorium,"About, mission photo description"
+impact_line,"It costs about $10,000 to $15,000 to train one service dog. Every dollar comes from donors like you, and every dog is placed free of charge.",Home and Sponsor & Donate
+founding_story,"It all started with a girl, a dog, and a dream. Illini Service Dogs was founded in 2010 at the University of Illinois Urbana-Champaign. As a student, Bridget Evans proposed having college students foster and train service dogs for people with physical disabilities, and with a group of passionate, dedicated volunteers she began the first program in the country to let college students train mobility service dogs.
+
+Bridget was born with spina bifida and got her first puppy, a big black Lab named Coal, when she was 11. She had been on several service dog waiting lists for years, most of which required a significant donation. So Bridget and her family began training Coal themselves, and a successful team was created. Coal went to high school with Bridget and gave her independence, purpose and passion. By the time she went to college, she had helped train over 20 service dogs. Coal passed away in 2013, but his legacy lives on in this organization and every service dog team he helped create.
+
+Today ISD is a completely volunteer-run 501(c)(3) organization, formed by Bridget and people with backgrounds in animal rescue, animal behavior and non-profit work. Together we educate, fundraise and advocate for people with disabilities and service dogs, and strive to create a generation of partners in disability rights.","About, Our story"
+story_photo,gallery-21.jpg,"About, story photo"
+story_photo_alt,An ISD member sitting on autumn grass with a black Lab in a red vest,"About, story photo description"
+how_we_are_run,"Illini Service Dogs is led by three boards. The Administrative Board oversees the organization as a whole and votes on key decisions; one of its seven members is the executive liaison, who is also president of the Executive Board. The Advisory Board brings specialized skills and acts as a sub-committee that advises the Administrative Board. The Executive Board is made up of University of Illinois students, elected every spring, who run day-to-day operations on campus. Every board member volunteers their time outside of school and work.","About, leadership"
+sponsors_intro,"Our success comes from two things: members who volunteer their time outside their academic and professional careers, and our generous sponsors. Whether through a monetary gift, the donation of a dog, or services and facilities, these people and organizations have made ISD what it is today.","About, sponsors"
+donation_use,"Illini Service Dogs is 100% funded through donations, which means every little bit counts. Whether you can give $1 or $10,000, no amount is too small. Your gift goes toward necessities like dog food, veterinary care and training supplies, plus fun things like toys!",Sponsor & Donate
+sponsor_note,"To sponsor one of our dogs, email us. A $10,000 gift sponsors a dog for its entire training period (about 2 years), and donors who give $5,000 or more receive naming rights for the next dog to enter our program (names must be approved by the board of directors).",Sponsor & Donate
 contact_email,ContactUs@illiniservicedogs.com,"Footer, chatbot, Get Involved"
 donate_email,donate@illiniservicedogs.com,Sponsor & Donate
 applicants_email,applicants@illiniservicedogs.com,Apply
@@ -17,25 +37,32 @@ address,"Illini Service Dogs, 1206 S. Fourth Street, Huff Hall, Room 2005, Champ
 facebook_url,https://www.facebook.com/IlliniServiceDogs,Footer
 instagram_url,https://instagram.com/illiniservicedogs/,"Footer, Events"
 paypal_url,,PASTE LINK: ISD's PayPal donate link (Sponsor & Donate button; hidden while blank)
-venmo_url,,PASTE LINK: ISD's Venmo link (Sponsor & Donate button; hidden while blank)
-amazon_wishlist_url,https://a.co/d0Be1a6,Sponsor & Donate button
+venmo_url,https://venmo.com/IlliniServiceDogs,Sponsor & Donate button
+amazon_wishlist_url,https://www.amazon.com/hz/wishlist/ls/2GAZ232Q964HP,Sponsor & Donate button
 check_payable_to,Illini Service Dogs,Sponsor & Donate
-tax_letter_note,Gifts of $250 or more receive an acknowledgement letter for your tax records.,Sponsor & Donate
-application_url,,PASTE LINK: service dog application form (Apply button; hidden while blank)
-puppy_raiser_form_url,,PASTE LINK: Puppy Raiser form (Get Involved button; hidden while blank)
+tax_letter_note,"Donors who give $250 or more by any method automatically receive a donor acknowledgement letter by mail or email for their tax records, so please include your mailing or email address. Gifts under $250 receive a letter on request. ISD is a 501(c)(3) not-for-profit, and donations are tax deductible to the extent allowed by law.",Sponsor & Donate
+application_url,https://docs.google.com/forms/d/e/1FAIpQLSfCaXnk92-jR213Lr5f-4-MVY53IML6xMXdNR4owFHRd6VOBA/viewform,Apply button
+puppy_raiser_form_url,https://forms.gle/PRzymzfVGywcxXEu6,Get Involved button
+puppy_doc_interim_url,https://www.illiniservicedogs.com/_files/ugd/505e39_52c30dcde2234d169ab711f2cc59ca11.pdf,Get Involved: Interim Foster Expectations (PDF)
+puppy_doc_long_term_url,https://www.illiniservicedogs.com/_files/ugd/505e39_6999abe4df48444284579462c83f7926.pdf,Get Involved: Long Term Puppy Raiser Expectations (PDF)
+puppy_doc_timeline_url,https://www.illiniservicedogs.com/_files/ugd/505e39_62dae70639e14d1db53a5fac9f819d94.pdf,Get Involved: Puppy Raiser Program Expected Timeline (PDF)
 newsletter_url,,Get Involved (section hides when blank)
-response_time,[ISD to confirm],"Footer, e.g. 'We reply within 5 business days'"
-apply_who_we_serve,"ISD places mobility service dogs, 100% free of charge, with people who have physical disabilities and could benefit from a mobility service dog.",Apply
-apply_eligibility,[ISD to confirm],"Apply, eligibility details"
-apply_timing_note,"ISD does not go first come, first served, and we don't quote wait times. Each year we match applicants with dogs nearing the end of training, based on each applicant's needs. We encourage you to also apply to other service dog programs.",Apply
-apply_step_1,Apply: Fill out ISD's online application.,"Apply timeline, step 1"
-apply_step_2,Review: The ISD team reviews your application.,"Apply timeline, step 2"
-apply_step_3,Waitlist: Approved applicants join the waitlist.,"Apply timeline, step 3"
-apply_step_4,"Matching: Each year, ISD matches applicants with dogs nearing the end of training.","Apply timeline, step 4"
-apply_step_5,Placement: You and your new service dog begin working together.,"Apply timeline, step 5"
-puppy_raiser_text,"Puppy raisers care for an ISD dog in training in their own home. Our dogs are in the program from about 8 weeks to 2.5 years old, and a placement usually lasts 2 to 6 months. Puppy raisers must live in the Champaign-Urbana area.",Get Involved
-student_membership_text,UIUC students can join ISD as members. We recruit new members in the fall semester only.,Get Involved
-volunteer_text,"We have open volunteer roles. To apply, email your resume.",Get Involved
+response_time,We do our best to respond within 48 hours.,Footer and About
+apply_who_we_serve,"We specialize in training mobility service dogs for people with physical disabilities, and can accommodate certain specialized needs on a case-by-case basis. At this time we do not train psychiatric support dogs for mental health disabilities such as PTSD or anxiety. Our dogs are placed 100% free of charge.",Apply
+apply_eligibility,"Illini Service Dogs does not discriminate on the basis of race, color, national origin, age or sex. If you're unsure whether we can help you, email us. Your privacy is important to us: all applicant information is kept confidential.",Apply
+apply_timing_note,"Illini Service Dogs does not operate on a first come, first served basis. Each year we evaluate our list of applicants and determine whose needs best match the skills of our dogs nearing the end of their training. Due to a recent increase in demand, we no longer quote estimated wait times, and we encourage all applicants to seek out other ways of acquiring a service dog while waiting to hear from us.",Apply
+apply_step_1,Apply: Complete ISD's online service dog application.,"Apply timeline, step 1"
+apply_step_2,"Review: Once your application is reviewed, a representative contacts you about whether it was approved.","Apply timeline, step 2"
+apply_step_3,Waitlist: Approved applicants are placed on our waiting list.,"Apply timeline, step 3"
+apply_step_4,Matching: Each year we match applicants' needs with the skills of dogs nearing the end of training.,"Apply timeline, step 4"
+apply_step_5,"Placement: If a match is found, we reach out to begin the placement process.","Apply timeline, step 5"
+puppy_raiser_text,"Puppy raisers are volunteers who foster a service dog in training until the dog is ready to move to the University of Illinois campus. Living with a puppy raiser gives our dogs lots of one-on-one socialization and training time to practice basic commands and good behavior.
+
+The dog can be anywhere from 8 weeks to 2.5 years old. The length of each placement is decided together with the puppy raiser, but usually runs 2 to 6 months. Currently, puppy raisers must live in the Champaign-Urbana area.",Get Involved
+puppy_photo,gallery-16.jpg,"Get Involved, puppy raiser photo (file in static/images)"
+puppy_photo_alt,An ISD member smiling and holding a fluffy black puppy,"Get Involved, puppy raiser photo description"
+student_membership_text,Current U of I students can apply to ISD's student volunteer program. We recruit only at the beginning of the fall semester and don't admit new members on a rolling basis. Look for us on Quad Day and on our Facebook and Instagram pages during recruitment season.,Get Involved
+volunteer_text,"Open advisory board positions are listed below. To apply, email your resume and the position(s) you're interested in.",Get Involved
 partner_text,Other RSOs and local groups can team up with ISD to co-host a fundraiser or a Pet-A-Pup style event.,Get Involved
 events_empty_text,No upcoming events right now. Follow us on Instagram for updates.,Events and Home when there are no events
 chatbot_disclaimer,"Answers come from ISD's FAQ, not a live person. For anything else, email us.",Ask ISD

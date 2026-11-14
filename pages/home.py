@@ -1,36 +1,38 @@
-import streamlit as st
-
 import ui
-from content import dogs_with_status, get_upcoming_events
+from content import dogs_with_status, get_news, get_upcoming_events
 
-st.title(ui.md(ui.text("hero_headline", "Illini Service Dogs")))
-if ui.text("hero_subtext"):
-    ui.say(ui.text("hero_subtext"))
+ui.hero(
+    ui.text("hero_eyebrow"),
+    ui.text("hero_headline", "Illini Service Dogs"),
+    ui.text("hero_subtext"),
+    ui.text("hero_photo"),
+    ui.text("hero_photo_alt"),
+    ui.btn("Sponsor a Dog", "sponsor") + ui.btn("Apply for a Service Dog", "apply", kind="ghost"),
+)
+ui.stats()
 
-c1, c2, c3 = st.columns(3)
-with c1:
-    ui.go_button("Sponsor a Dog", "sponsor", key="home-sponsor")
-with c2:
-    ui.go_button("Donate", "sponsor", key="home-donate")
-with c3:
-    ui.go_button("Apply for a Service Dog", "apply", key="home-apply")
+if ui.text("home_intro"):
+    ui.section("Who we are")
+    ui.html_block(f'<div class="isd-lead">{ui.paras(ui.text("home_intro"))}</div>')
 
-if ui.text("impact_line"):
-    st.info(ui.md(ui.text("impact_line")), icon=":material/favorite:")
-
-dogs = dogs_with_status("in_training").head(3).to_dict("records")
+dogs = dogs_with_status("in_training").head(4).to_dict("records")
 if dogs:
-    st.header("Dogs in training")
-    ui.grid(dogs, lambda d: ui.dog_card(d, key_prefix="home"))
-    ui.go_button("Meet all the dogs", "dogs", primary=False, key="home-all-dogs")
+    ui.section("Meet the dogs in training", "Every one of them will be placed free of charge with a partner who needs them.")
+    ui.dogs_grid(dogs)
+    ui.html_block(ui.btn("Meet all the dogs", "dogs", kind="ghost"))
 
-events = get_upcoming_events()
-if not events.empty:
-    st.header("Next event")
-    nxt = events.iloc[0].to_dict()
-    ui.event_card(nxt)
-    ui.go_button("See all events", "events", primary=False, key="home-events")
+ui.callout(
+    "Every dog is a gift",
+    ui.text("impact_line", "Every service dog is placed free of charge, thanks to donors like you."),
+    ui.btn("Give today", "sponsor", kind="light") + ui.btn("Ways to get involved", "involved", kind="light"),
+)
 
-if ui.text("mission"):
-    st.header("Our mission")
-    ui.say(ui.text("mission"))
+events = get_upcoming_events().head(2).to_dict("records")
+if events:
+    ui.section("Upcoming events")
+    ui.events_grid(events)
+
+news = get_news().head(3).to_dict("records")
+if news:
+    ui.section("Program news")
+    ui.news_cards(news, teaser_only=True)

@@ -9,13 +9,14 @@ FAQ = load_tab_uncached("faq", "").rows
 
 # (what a visitor might type, the FAQ question it should land on)
 ON_TOPIC = [
-    ("how do i apply for a service dog", "How do I apply for a service dog?"),
-    ("Where's the application?", "How do I apply for a service dog?"),
-    ("how much does it cost to get a dog", "How much does a service dog cost me?"),
-    ("is it free?", "How much does a service dog cost me?"),
-    ("am I eligible if I use a wheelchair", "Who can get a service dog from ISD?"),
-    ("how long is the waitlist", "How long is the wait for a service dog?"),
-    ("how do you decide who gets matched with a dog", "How are dogs matched with applicants?"),
+    ("how do i apply for a service dog", "How do I get a service dog?"),
+    ("Where's the application?", "How do I get a service dog?"),
+    ("is there a fee to get a service dog", "How much does a service dog cost me? Does ISD charge a fee?"),
+    ("is it free?", "How much does a service dog cost me? Does ISD charge a fee?"),
+    ("do you train dogs for PTSD or anxiety", "Do you provide service dogs for psychiatric disabilities like PTSD, anxiety, depression or autism?"),
+    ("how long is the waitlist", "How long is your waiting list?"),
+    ("will I definitely get a dog if I'm accepted", "If my application is accepted, am I guaranteed a service dog?"),
+    ("I live in California, can I still apply", "I live far from Champaign. Will you still work with me?"),
     ("I applied last month, any update on my application status?", "How do I check the status of my application?"),
     ("the form is broken and gives an error", "The application form isn't working. Who do I contact?"),
     ("can I give money with venmo", "How can I donate?"),
@@ -26,13 +27,17 @@ ON_TOPIC = [
     ("I want to sponsor Millie", "How do I sponsor a dog?"),
     ("what does a puppy raiser do", "What is a puppy raiser?"),
     ("can I foster a puppy at my apartment in Urbana", "How do I become a puppy raiser?"),
-    ("how do I join as a UIUC student", "How can I join ISD as a UIUC student?"),
+    ("how do I join as a UIUC student", "I'm a University of Illinois student. Can I join at any time?"),
     ("are you hiring volunteers? I have a resume", "Are there volunteer or leadership roles open?"),
     ("our club wants to co-host a fundraiser with you", "Can my RSO or group partner with ISD?"),
     ("how do I contact you", "How do I contact Illini Service Dogs?"),
-    ("who founded ISD", "What is Illini Service Dogs?"),
+    ("who founded ISD", "How and when did Illini Service Dogs start?"),
+    ("is ISD a 501c3 nonprofit", "Is Illini Service Dogs a charitable organization?"),
+    ("is it ok to pet a service dog", "Can I pet a service dog? What should I do when I meet one?"),
+    ("what can a business legally ask about my service dog", "What questions can I legally ask someone about their service dog?"),
+    ("what tasks do the dogs learn", "What tasks do ISD dogs learn?"),
+    ("will you train my own dog", "Will you train my own dog to be my service dog?"),
 ]
-
 OFF_TOPIC = [
     "what's the weather like in Chicago tomorrow",
     "who won the Illinois football game",

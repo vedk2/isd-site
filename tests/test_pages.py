@@ -4,6 +4,7 @@ Runs twice: once with the real backup/ files (lots of [ISD to confirm]) and once
 with a fully filled-in copy, so both the "coming soon" and the finished states work.
 """
 
+import re
 import shutil
 from datetime import date, timedelta
 
@@ -35,11 +36,22 @@ def fresh_cache():
     st.cache_resource.clear()
 
 
+def page_html(at) -> str:
+    return "".join(h.proto.body for h in at.get("html"))
+
+
+def assert_accessible(at):
+    markup = page_html(at)
+    assert markup.count("<h1") + len(at.title) == 1, "every page needs exactly one h1"
+    for img in re.findall(r"<img[^>]*>", markup):
+        assert re.search(r'alt="[^"]+"', img), f"image without alt text: {img[:120]}"
+
+
 @pytest.mark.parametrize("path", PAGES)
 def test_page_renders_with_seed_content(path):
     at = run_page(path)
     assert not at.exception, at.exception
-    assert len(at.title) == 1  # exactly one h1 per page
+    assert_accessible(at)
 
 
 @pytest.fixture
@@ -47,7 +59,7 @@ def filled(tmp_path, monkeypatch):
     backup = tmp_path / "backup"
     shutil.copytree(config.BACKUP_DIR, backup)
     images = tmp_path / "images"
-    images.mkdir()
+    shutil.copytree(config.IMAGES_DIR, images)
     # A tiny valid PNG for Millie.
     (images / "millie.jpg").write_bytes(bytes.fromhex(
         "89504e470d0a1a0a0000000d4948445200000001000000010806000000"
@@ -75,17 +87,25 @@ def filled(tmp_path, monkeypatch):
 def test_page_renders_with_filled_content(filled, path):
     at = run_page(path)
     assert not at.exception, at.exception
+    assert_accessible(at)
 
 
-def test_filled_home_shows_next_event_and_dogs(filled):
-    at = run_page(ui.PAGES["home"])
-    headers = [h.value for h in at.header]
-    assert "Next event" in headers and "Dogs in training" in headers
+def test_filled_home_shows_events_dogs_and_news(filled):
+    markup = page_html(run_page(ui.PAGES["home"]))
+    for text in ("Upcoming events", "Meet the dogs in training", "Program news", "Pet-A-Pup", "Millie"):
+        assert text in markup, text
+
+
+def test_seed_pages_show_real_isd_content():
+    assert "Maizey" in page_html(run_page(ui.PAGES["dogs"]))
+    about = page_html(run_page(ui.PAGES["about"]))
+    assert "Mary Guth" in about and "Hinsdale Humane Society" in about
+    assert "Welcome, Lincoln!" in page_html(run_page(ui.PAGES["news"]))
 
 
 def test_chatbot_answers_and_falls_back():
     at = run_page(ui.PAGES["ask"])
-    at.chat_input[0].set_value("how much does a dog cost").run()
-    assert any("free of charge" in m.value for m in at.markdown)
+    at.chat_input[0].set_value("is there a fee to get a service dog").run()
+    assert any("no cost" in m.value for m in at.markdown)
     at.chat_input[0].set_value("best pizza near campus").run()
     assert any("ContactUs@illiniservicedogs.com" in m.value for m in at.markdown)

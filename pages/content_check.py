@@ -16,9 +16,8 @@ from content import (
     upcoming_events,
 )
 
-st.title("Content Check")
-ui.say("This page is for ISD board members. It shows whether the website is reading the Google Sheet "
-       "and lists anything in the Sheet that needs fixing. Edits to the Sheet show up within about 10 minutes.")
+ui.page_head("Content Check", "For ISD board members: whether the website is reading the Google Sheet, and anything "
+             "in the Sheet that needs fixing. Edits to the Sheet show up within about 10 minutes.")
 
 if st.button("Check the Sheet again now", icon=":material/refresh:"):
     clear_cache()
@@ -58,16 +57,27 @@ skipped = [f"{r.sheet_name} tab, {s}" for r in results.values() for s in r.skipp
 checklist("Rows the site skipped", skipped, "No rows were skipped.")
 
 dogs = results["dogs"].rows.to_dict("records")
+# (tab, column with the photo file, column naming the row, is a photo required?)
+PHOTO_COLUMNS = [("dogs", "photo_file", "name", True), ("news", "photo_file", "title", False),
+                 ("team", "photo_file", "name", False), ("gallery", "photo_file", "photo_file", True),
+                 ("sponsors", "logo_file", "name", False)]
+missing_photo, missing_alt = [], []
+for tab, col, label, required in PHOTO_COLUMNS:
+    for row in results[tab].rows.to_dict("records"):
+        file = row[col]
+        if file and not photo_path(file):
+            missing_photo.append(f"{results[tab].sheet_name} tab, {row[label]}: no file named \"{file}\" "
+                                 "in the static/images folder on GitHub")
+        elif not file and required:
+            missing_photo.append(f"{results[tab].sheet_name} tab, {row[label]}: the photo column is blank")
+        alt_col = "alt_text"
+        if file and photo_path(file) and is_placeholder(row.get(alt_col)) and tab != "sponsors":
+            missing_alt.append(f"{results[tab].sheet_name} tab, {row[label]}")
+checklist("Photos that can't be found", missing_photo, "Every photo listed in the Sheet was found.")
 checklist(
-    "Dogs missing a photo",
-    [f"{d['name']}: no image named \"{d['photo_file'] or '(blank)'}\" in the images folder" for d in dogs
-     if not photo_path(d["photo_file"])],
-    "Every dog has a photo.",
-)
-checklist(
-    "Dogs missing alt text (a short description of the photo for blind and low-vision visitors)",
-    [d["name"] for d in dogs if is_placeholder(d["alt_text"])],
-    "Every dog has alt text.",
+    "Photos missing alt text (a short description of the photo for blind and low-vision visitors)",
+    missing_alt,
+    "Every photo has alt text.",
 )
 checklist(
     "Dogs with a training stage that isn't 1, 2, 3 or 4",

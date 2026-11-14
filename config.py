@@ -10,18 +10,23 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent
 BACKUP_DIR = ROOT / "backup"
-IMAGES_DIR = ROOT / "images"
+IMAGES_DIR = ROOT / "static" / "images"  # served at app/static/images/ (see .streamlit/config.toml)
 
-# ISD's content Sheet: https://docs.google.com/spreadsheets/d/1dn6-9QMwlQ5c0LjPRj3ccA8jU-TPiEVQ0wwHkWJNUWY/edit
+# ISD's content Sheet: https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/edit
 # Each link downloads one tab as CSV. The Sheet is shared "Anyone with the link: Viewer".
 # A Streamlit secret with the same name overrides these (see secrets.toml.example).
-_SHEET = "https://docs.google.com/spreadsheets/d/1dn6-9QMwlQ5c0LjPRj3ccA8jU-TPiEVQ0wwHkWJNUWY/export?format=csv&gid="
+_SHEET = "https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/export?format=csv&gid="
 SHEET_URLS = {
-    "dogs": _SHEET + "914704615",
-    "faq": _SHEET + "1304248444",
-    "events": _SHEET + "305217368",
-    "sponsor_tiers": _SHEET + "840687152",
-    "site_text": _SHEET + "1534344510",
+    "dogs": _SHEET + "1711629647",
+    "faq": _SHEET + "1340905700",
+    "events": _SHEET + "191491853",
+    "sponsor_tiers": _SHEET + "2047918439",
+    "site_text": _SHEET + "331798029",
+    "news": _SHEET + "414002018",
+    "team": _SHEET + "1907580112",
+    "sponsors": _SHEET + "390505646",
+    "gallery": _SHEET + "2033245289",
+    "roles": _SHEET + "1312204106",
 }
 
 # How long (seconds) the site remembers the Sheet before checking for edits.

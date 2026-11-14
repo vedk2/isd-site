@@ -1,4 +1,11 @@
 tier_name,amount,covers,payment_link,sort_order
-Food,$XX,Dog food for a dog in training [ISD to confirm],[ISD to confirm],1
-Vet care,$XX,Vet visits and care for a dog in training [ISD to confirm],[ISD to confirm],2
-Training supplies and toys,$XX,Training gear and toys for a dog in training [ISD to confirm],[ISD to confirm],3
+A treat,$1,Pays for a dog treat!,,1
+Gear,$5,"Pays for a dog collar, leash or a toy",,2
+Training,$10,Pays for some training supplies,,3
+Food,$30,Pays for a bag of dog food,,4
+Health,$50,Pays for a month of heartworm and flea/tick prevention for a dog,,5
+Equipment,$100,"Pays for a service dog vest, dog crate or training supplies",,6
+Vet care,$500,Pays for a puppy spay or neuter,,7
+A year of care,"$1,000","Pays for a year of preventative vet care, or a year of food and treats for a dog",,8
+Naming rights,"$5,000","A year of preventative vet care, food, treats and training supplies. Includes naming rights for the next dog to enter the program",,9
+Sponsor a dog,"$10,000",Sponsors one of our dogs over its entire training period (about 2 years). Includes naming rights,,10

@@ -9,6 +9,10 @@ secondaryBackgroundColor = "#F4F1EC"  # warm light gray for cards and the sideba
 linkColor = "#13294B"
 linkUnderline = true
 
+[server]
+# Lets pages show photos from static/images/ directly.
+enableStaticServing = true
+
 [client]
 toolbarMode = "viewer"
 

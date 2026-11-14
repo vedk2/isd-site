@@ -1,14 +1,11 @@
-import streamlit as st
-
 import ui
 from content import get_site_text, get_upcoming_events
 
-st.title("Events")
+ui.page_head("Events", "Pet-A-Pups, fundraisers and campus events. Come meet the dogs!")
 
 events = get_upcoming_events().to_dict("records")
 if events:
-    for position, event in enumerate(events):
-        ui.event_card({**event, "_pos": position}, heading_level="header")
+    ui.events_grid(events)
 else:
-    ui.say(ui.text("events_empty_text", "No upcoming events right now. Follow us on Instagram for updates."))
-    ui.link_button("Illini Service Dogs on Instagram", get_site_text("instagram_url"), key="events-insta")
+    ui.html_block(f'<p class="isd-lead">{ui.esc(ui.text("events_empty_text", "No upcoming events right now. Follow us on Instagram for updates."))}</p>'
+                  f'{ui.btn("Illini Service Dogs on Instagram", get_site_text("instagram_url"), external=True)}')

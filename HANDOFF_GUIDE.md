@@ -11,7 +11,7 @@ Fill this table in at handoff and keep it current when board members change.
 | What | Where | Who has access |
 |---|---|---|
 | The website | https://illini-service-dogs.streamlit.app | Anyone (it's public) |
-| The Google Sheet (all the words, dogs, events) | [ISD Website Content](https://docs.google.com/spreadsheets/d/1dn6-9QMwlQ5c0LjPRj3ccA8jU-TPiEVQ0wwHkWJNUWY/edit) | Owner: ISD Google account (transfer at handoff). Editors: board members |
+| The Google Sheet (all the words, dogs, events) | [ISD Website Content](https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/edit) | Owner: ISD Google account (transfer at handoff). Editors: board members |
 | Dog photos and the code (GitHub) | https://github.com/vedk2/isd-site (move to an ISD account at handoff) | ISD GitHub account + tech lead |
 | Hosting (Streamlit Community Cloud) | https://share.streamlit.io (app name: illini-service-dogs) | Sign in with the GitHub account that owns the code |
 
@@ -21,7 +21,7 @@ Fill this table in at handoff and keep it current when board members change.
 
 ## The golden rules
 
-1. **Don't rename the tabs** (`Dogs`, `FAQ`, `Events`, `SponsorTiers`, `SiteText`) and **don't change the top row** (the column names). The site finds information by those names.
+1. **Don't rename the tabs** (`Dogs`, `FAQ`, `Events`, `SponsorTiers`, `SiteText`, `News`, `Team`, `Sponsors`, `Gallery`, `Roles`) and **don't change the top row** (the column names). The site finds information by those names.
 2. **One row = one thing.** One dog, one question, one event.
 3. **Not sure yet? Type `[ISD to confirm]`.** Anything that says that (or `$XX`) stays hidden from visitors until you replace it, and the Content Check page lists it so nothing gets forgotten.
 4. **Give board members edit access by name** (Share → add their email → Editor). Don't change General access.
@@ -35,7 +35,7 @@ Fill this table in at handoff and keep it current when board members change.
 
 1. Name the photo with the dog's name in lowercase, with no spaces, for example `luna.jpg`.
 2. Go to the GitHub link in the table above and sign in.
-3. Click the **images** folder.
+3. Click the **static** folder, then the **images** folder.
 4. Click **Add file → Upload files** and drag in the photo.
 5. Scroll down and click the green **Commit changes** button.
 
@@ -80,7 +80,7 @@ Change the number in **training_stage**. The progress bar on their card updates.
 These answers power both the FAQ and the **Ask ISD** chatbot.
 
 - **To edit**, change the text in the **answer** column.
-- **To add**, add a new row with a **question**, an **answer**, and a **category** (`applying`, `donating`, `sponsoring`, `volunteering`, `puppy_raising` or `general`).
+- **To add**, add a new row with a **question**, an **answer**, and a **category**: `applying`, `service_dogs`, `donating`, `sponsoring`, `puppy_raising`, `volunteering`, `about_isd` or `general`. The FAQ page groups questions by category.
 - **The keywords column** is how you teach the chatbot. If people ask something in a way the bot doesn't recognize, add their words here, separated by commas. For example: `cost, price, fee, free, afford`.
 
 If the chatbot isn't sure, it never guesses. It tells the visitor to email ContactUs@illiniservicedogs.com. So if the team keeps getting the same question by email, add it to the FAQ.
@@ -106,14 +106,26 @@ Events show up in date order. **Once the date has passed, the event hides itself
 
 ---
 
-## Change sponsorship levels
+## Change the giving levels
 
-In the **SponsorTiers** tab, each row is one level, for example "Food for a month, $50".
+The **SponsorTiers** tab holds the "impact of your gift" levels on Sponsor & Donate (from $1 for a treat up to $10,000 to sponsor a dog). Each row is one level:
 
-- **amount**: the price, like `$50`. A level with `$XX` stays hidden.
+- **tier_name**: a short label, like `Food`.
+- **amount**: the price, like `$30`. A level with `$XX` stays hidden.
 - **covers**: what the money pays for.
-- **payment_link**: the PayPal or Venmo link for that level. If it's blank, the button uses ISD's main PayPal link.
-- **sort_order**: 1 shows first, 2 second, and so on.
+- **payment_link**: optional. A PayPal or Venmo link just for that level adds a "Give" button to it.
+- **sort_order**: 1 shows first, 2 second, and so on. The last level is highlighted.
+
+## Post a news story
+
+Add a row to the **News** tab: **title**, **date** (like `2027-04-18`), **body** (press Ctrl+Enter twice inside the cell to start a new paragraph), and optionally a **photo_file** and its **alt_text**. The newest stories show first, and the three newest also appear on the Home page.
+
+## Update the leadership, sponsors, photos or open roles
+
+- **Team** tab: one row per person. **board** is `administrative`, `executive` or `advisory`. Upload a headshot to static/images and put its file name in **photo_file**; without a photo, the site shows the person's initials. When someone leaves, delete their row.
+- **Sponsors** tab: name, website link and (optionally) a logo file.
+- **Gallery** tab: the photo grid on Meet the Dogs. Upload the photo, then add a row with its file name and a one-sentence **alt_text** describing it.
+- **Roles** tab: open volunteer positions on Get Involved. Type `no` in **is_open** to hide a role without deleting it.
 
 ## Change any other words on the site
 
@@ -156,6 +168,7 @@ The free hosting puts the site to sleep when nobody has visited for a while. If 
 - **More dog photos:** good photos are the biggest reason people sponsor. Aim for one clear, bright photo per dog.
 - **Link from the main website:** add a big "Meet our dogs and sponsor one" button on illiniservicedogs.com that points here. It brings visitors and keeps the site from falling asleep.
 - **Impact numbers:** fill in SiteText → `impact_line` (for example, how many dogs ISD has placed). Specific numbers help donations.
-- **Sponsorship levels:** set real amounts in the SponsorTiers tab.
+- **PayPal button:** paste ISD's PayPal donation link into SiteText → `paypal_url`. The old site's PayPal button was set up inside Wix, so we couldn't copy its link.
+- **Fresh news:** the newest stories are from 2025. A short post each semester (new puppies, placements, events) keeps the site feeling alive.
 
 Questions about the code go to whoever is listed as tech lead in the table at the top. Original builders: Ved Kulkarni and Nithin Raj (BUS 401, Fall 2026).

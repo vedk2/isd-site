@@ -4,7 +4,7 @@ A Streamlit site for [Illini Service Dogs](https://www.illiniservicedogs.com) (I
 
 **Live site:** https://illini-service-dogs.streamlit.app (Streamlit Community Cloud, deployed from `main`, Python 3.11)
 
-**Content Sheet:** [ISD Website Content](https://docs.google.com/spreadsheets/d/1dn6-9QMwlQ5c0LjPRj3ccA8jU-TPiEVQ0wwHkWJNUWY/edit)
+**Content Sheet:** [ISD Website Content](https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/edit)
 
 **Board members:** you don't need this file. Read [HANDOFF_GUIDE.md](HANDOFF_GUIDE.md) instead.
 
@@ -41,11 +41,13 @@ app.py              navigation, shared header and footer
 config.py           Sheet link fallbacks, cache time, chatbot threshold, training stage names
 content.py          loads + cleans every Sheet tab, falls back to backup/
 chatbot.py          FAQ matcher (TF-IDF + cosine similarity)
-ui.py               shared pieces: dog cards, event cards, buttons, header, footer
-style.py            the only custom CSS (small, optional tweaks)
-pages/              one file per page; pages only render content
+ui.py               shared HTML blocks: hero, cards, grids, people, logos, gallery, header, footer
+style.py            all custom CSS (fonts, cards, grids, mobile layout) in one place
+pages/              one file per page (Home, Meet the Dogs, Sponsor & Donate, Apply, Get Involved,
+                    About, News, Events, FAQ, Ask ISD, Content Check); pages only render content
 backup/             CSV copy of every Sheet tab
-images/             dog photos, referenced by file name from the Dogs tab
+static/images/      every photo and logo, referenced by file name from the Sheet
+                    (served at app/static/images/ because server.enableStaticServing is on)
 scripts/refresh_backup.py
 tests/
 .streamlit/config.toml           theme colors (the one place to change them)
@@ -71,10 +73,15 @@ Leading lines that start with `#` in a CSV are treated as notes and ignored. `ba
 | Tab | Columns | Notes |
 |---|---|---|
 | Dogs | name, breed, age, bio, training_stage, photo_file, alt_text, instagram_url, sponsor_link, status | stage is 1 to 4 (names in `config.TRAINING_STAGES`); status is in_training, placed or retired |
-| FAQ | question, answer, category, keywords | category is applying, donating, sponsoring, volunteering, puppy_raising or general |
+| FAQ | question, answer, category, keywords | category is one of the keys of `content.FAQ_CATEGORIES` (applying, service_dogs, donating, sponsoring, puppy_raising, volunteering, about_isd, general) |
 | Events | title, date, start_time, location, description, link | date is YYYY-MM-DD (M/D/YYYY also works); past events hide themselves |
-| SponsorTiers | tier_name, amount, covers, payment_link, sort_order | tiers whose amount is a placeholder are hidden |
-| SiteText | key, value, where_it_shows | `where_it_shows` is only a note for editors; the keys the app reads are in `content.SITE_TEXT_KEYS` |
+| SponsorTiers | tier_name, amount, covers, payment_link, sort_order | ISD's giving levels ($1 to $10,000); a level whose amount is a placeholder is hidden |
+| SiteText | key, value, where_it_shows | `where_it_shows` is only a note for editors; the keys the app reads are in `content.SITE_TEXT_KEYS`. `stat_1`..`stat_4` use `number|label` |
+| News | title, date, body, photo_file, alt_text | newest first; a blank line inside `body` starts a new paragraph |
+| Team | name, role, board, photo_file, alt_text, sort_order | board is administrative, executive or advisory; no photo shows initials |
+| Sponsors | name, link, logo_file, alt_text, sort_order | no logo shows the name as text |
+| Gallery | photo_file, alt_text, caption, sort_order | the photo grid on Meet the Dogs |
+| Roles | title, description, details_link, is_open | open volunteer roles on Get Involved; `is_open` = no hides one |
 
 ## Refreshing the backup
 
@@ -94,7 +101,9 @@ The script uses the same links as the site (`.streamlit/secrets.toml` if present
 - If the score is at least `config.CHATBOT_THRESHOLD` (0.20), the bot shows the best answer and up to 3 related questions.
 - Otherwise it says it isn't sure and gives the `contact_email` from SiteText.
 
-The threshold was tuned in `tests/test_chatbot.py`. Real questions scored 0.22 or higher, and off-topic ones scored 0.18 or lower. If you change the FAQ a lot, rerun the tests. The usual fix for a missed question is adding words to that row's `keywords` cell, not changing code.
+The threshold was tuned in `tests/test_chatbot.py` against ISD's real FAQ. Real questions scored 0.22 or higher, and off-topic ones scored 0.17 or lower.
+
+Known limits of plain word matching: short or ambiguous questions can land on a neighbouring FAQ (for example "how much does it cost me" can match the cost-to-train answer; the right one then appears under "related questions"), and an off-topic question that happens to share a word, like "where can I buy a used car", can occasionally get an answer. If you change the FAQ a lot, rerun the tests. The usual fix for a missed question is adding words to that row's `keywords` cell, not changing code.
 
 A paid LLM is deliberately not wired in. If ISD ever wants one, add it as an optional rephrasing step that only runs when a key exists in secrets and only rephrases the matched FAQ answer.
 
@@ -105,8 +114,8 @@ pytest
 ```
 
 - `test_content.py`: backup loads, bad or unreachable links fall back, missing columns don't crash, past events hide, empty and bad rows are handled.
-- `test_chatbot.py`: 22 realistic questions reach the right FAQ entry, 6 off-topic ones fall below the threshold.
-- `test_pages.py`: every page renders without errors (via `streamlit.testing.AppTest`), once with the placeholder seed content and once with fully filled-in content.
+- `test_chatbot.py`: 28 realistic questions reach the right FAQ entry, 6 off-topic ones fall below the threshold.
+- `test_pages.py`: every page renders without errors (via `streamlit.testing.AppTest`) with the backup content and with a filled-in copy, has exactly one h1, and has alt text on every image; plus checks that ISD's real content (graduates, leadership, sponsors, news) shows up.
 
 Tests never touch the live Sheet: `tests/conftest.py` blanks the links so everything runs from `backup/` or a temp copy.
 
@@ -125,7 +134,7 @@ Free apps go to sleep after a stretch with no visitors and take a few seconds to
 
 ## The Google Sheet
 
-ISD's content lives in [ISD Website Content](https://docs.google.com/spreadsheets/d/1dn6-9QMwlQ5c0LjPRj3ccA8jU-TPiEVQ0wwHkWJNUWY/edit). It has a "Start here" tab for editors, plus the five tabs the site reads.
+ISD's content lives in [ISD Website Content](https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/edit). It has a "Start here" tab for editors, plus the five tabs the site reads.
 
 **How the site reads it:** the Sheet is shared as **Anyone with the link: Viewer**, and each tab is downloaded as CSV from
 

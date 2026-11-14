@@ -44,8 +44,7 @@ def queue(question: str) -> None:
     st.session_state.pending = question
 
 
-st.title("Ask ISD")
-ui.say(ui.text("chatbot_disclaimer", "Answers come from ISD's FAQ, not a live person."))
+ui.page_head("Ask ISD", ui.text("chatbot_disclaimer", "Answers come from ISD's FAQ, not a live person."))
 
 if "chat" not in st.session_state:
     st.session_state.chat = []

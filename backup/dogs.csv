@@ -1,6 +1,10 @@
 name,breed,age,bio,training_stage,photo_file,alt_text,instagram_url,sponsor_link,status
-Millie,[ISD to confirm],[ISD to confirm],[ISD to confirm],[ISD to confirm],millie.jpg,[ISD to confirm],[ISD to confirm],,in_training
-Morrie,[ISD to confirm],[ISD to confirm],[ISD to confirm],[ISD to confirm],morrie.jpg,[ISD to confirm],[ISD to confirm],,in_training
-Rory,[ISD to confirm],[ISD to confirm],[ISD to confirm],[ISD to confirm],rory.jpg,[ISD to confirm],[ISD to confirm],,in_training
-Cairo,[ISD to confirm],[ISD to confirm],[ISD to confirm],[ISD to confirm],cairo.jpg,[ISD to confirm],[ISD to confirm],,in_training
-Bear,[ISD to confirm],[ISD to confirm],[ISD to confirm],[ISD to confirm],bear.jpg,[ISD to confirm],[ISD to confirm],,in_training
+Millie,[ISD to confirm],[ISD to confirm],[ISD to confirm],[ISD to confirm],millie.jpg,"Millie, a black puppy with a pink collar and a bone-shaped tag, sitting in the snow",https://www.instagram.com/servicedogmillie.isd,,in_training
+Morrie,[ISD to confirm],[ISD to confirm],[ISD to confirm],[ISD to confirm],morrie.jpg,"Morrie, a black Lab, lying on a brick walkway in an orange Illini Service Dogs vest",https://www.instagram.com/servicedogmorrie.isd,,in_training
+Rory,[ISD to confirm],[ISD to confirm],[ISD to confirm],[ISD to confirm],rory.jpg,"Rory, a black puppy in an orange bandana, sitting among pumpkins at a pumpkin patch",https://www.instagram.com/servicedogrory.isd,,in_training
+Cairo,[ISD to confirm],[ISD to confirm],[ISD to confirm],[ISD to confirm],cairo.jpg,"Cairo, a fluffy black puppy in a harness, sitting on grass outside an apartment building",https://www.instagram.com/servicedogcairo.isd,,in_training
+Bear,[ISD to confirm],[ISD to confirm],[ISD to confirm],[ISD to confirm],bear.jpg,"Bear, a black puppy on a leash, lying on a sidewalk and looking up at the camera",https://www.instagram.com/servicedogbear.isd,,in_training
+Ike,Standard Poodle,,Ike was donated as a puppy by Illini Spirit Standard Poodles. In March 2020 he became a full-time service dog and moved to his forever home with his new handler.,,ike.jpg,"Ike, a black standard poodle in an orange Illini bandana, sitting outdoors",,,placed
+Alma,Labrador Retriever,,"Alma joined ISD in 2017, donated by the Lindeen family and breeder Lisa Huizenga. She was placed with her new handler in February 2020.",,alma.jpg,"Alma, a yellow Labrador, wearing an ISD graduation cap",,,placed
+Maizey,[ISD to confirm],,"After a little more than two years of training, Maizey graduated in spring 2018 and moved to Alabama. She helps her partner by retrieving objects, turning lights on and off, and opening and closing doors.",,maizey.jpg,"Maizey, a tan and white dog in an orange vest and graduation cap, lying on the grass and smiling",,,placed
+Abe,[ISD to confirm],,"Abe entered the program as a puppy and, after more than two years of training, was placed in California in March 2017. He helps by retrieving objects, counterbalancing and bracing.",,abe.jpg,"Abe, a yellow Labrador in a working harness, lying on the floor",,,placed

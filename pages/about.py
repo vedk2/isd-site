@@ -1,21 +1,29 @@
-import streamlit as st
-
 import ui
+from content import get_sponsors, get_team
 
-st.title("About Illini Service Dogs")
+ui.page_head("About Illini Service Dogs", ui.text("tagline"))
 
-if ui.text("mission"):
-    st.header("Our mission")
-    ui.say(ui.text("mission"))
+ui.section("Our mission")
+ui.split(ui.text("mission_photo"), ui.text("mission_photo_alt"),
+         ui.paras(ui.text("mission")) + ui.paras(ui.text("mission_how")), reverse=True)
 
-if ui.text("founding_story"):
-    st.header("Our story")
-    ui.say(ui.text("founding_story"))
+ui.section("How it all started", "One girl. One dog. One dream.")
+ui.split(ui.text("story_photo"), ui.text("story_photo_alt"), ui.paras(ui.text("founding_story")))
 
-if ui.text("how_we_are_run"):
-    st.header("How ISD is run")
-    ui.say(ui.text("how_we_are_run"))
+team = get_team().to_dict("records")
+if team:
+    ui.section("Our leadership")
+    ui.html_block(ui.paras(ui.text("how_we_are_run")))
+    ui.team_by_board(team)
 
-if ui.email_link("contact_email"):
-    st.header("Contact us")
-    ui.say(f"Email {ui.email_link('contact_email')}.")
+sponsors = get_sponsors().to_dict("records")
+if sponsors:
+    ui.section("Our sponsors", ui.text("sponsors_intro"))
+    ui.logos(sponsors)
+
+ui.section("Contact us")
+parts = [f"<p>Email {ui.email_html('contact_email')}. {ui.esc(ui.text('response_time'))}</p>"]
+if ui.email_html("applicants_email"):
+    parts.append(f"<p>Applying for a service dog or checking on an application? Email {ui.email_html('applicants_email')}.</p>")
+parts.append(f"<p>{ui.esc(ui.text('address'))}</p>")
+ui.html_block("".join(parts))
