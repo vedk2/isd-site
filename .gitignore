@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+# Real secrets never go in git. Copy secrets.toml.example to secrets.toml locally,
+# or paste the values into the Streamlit Cloud dashboard.
+.streamlit/secrets.toml

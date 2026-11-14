@@ -1,0 +1,41 @@
+key,value,where_it_shows
+org_name,Illini Service Dogs,"Header, every page"
+tagline,"Mobilizing the world, four paws at a time.","Header, every page"
+hero_headline,Free mobility service dogs for people with physical disabilities,"Home, big headline"
+hero_subtext,"Illini Service Dogs is a nonprofit and student organization at the University of Illinois. We train mobility service dogs and place them 100% free of charge, funded entirely by donations.","Home, under the headline"
+mission,"We believe that through community education, advocating for disability rights and providing service dogs 100% free of charge, we are making the world a better place, four paws at a time.",Home and About
+impact_line,[ISD to confirm: e.g. XX dogs placed since 2010],Home and Sponsor & Donate
+founding_story,"Illini Service Dogs was founded in 2010 at the University of Illinois Urbana-Champaign by Bridget Evans, inspired by her own service dog, Coal.",About
+how_we_are_run,"ISD is run by three groups: an administrative board, an advisory board, and a student executive board.",About
+donation_use,"ISD is 100% funded by donations. Gifts pay for dog food, vet care, training supplies and toys.",Sponsor & Donate
+contact_email,ContactUs@illiniservicedogs.com,"Footer, chatbot, Get Involved"
+donate_email,donate@illiniservicedogs.com,Sponsor & Donate
+applicants_email,applicants@illiniservicedogs.com,Apply
+careers_email,careers@illiniservicedogs.com,Get Involved
+tech_email,tech_support@illiniservicedogs.com,Apply
+address,"Illini Service Dogs, 1206 S. Fourth Street, Huff Hall, Room 2005, Champaign, IL 61820","Footer, Sponsor & Donate"
+facebook_url,https://www.facebook.com/IlliniServiceDogs,Footer
+instagram_url,https://instagram.com/illiniservicedogs/,"Footer, Events"
+paypal_url,[ISD to confirm],Sponsor & Donate button
+venmo_url,[ISD to confirm],Sponsor & Donate button
+amazon_wishlist_url,https://a.co/d0Be1a6,Sponsor & Donate button
+check_payable_to,Illini Service Dogs,Sponsor & Donate
+tax_letter_note,Gifts of $250 or more receive an acknowledgement letter for your tax records.,Sponsor & Donate
+application_url,[ISD to confirm],Apply button
+puppy_raiser_form_url,[ISD to confirm],Get Involved button
+newsletter_url,,Get Involved (section hides when blank)
+response_time,[ISD to confirm],"Footer, e.g. 'We reply within 5 business days'"
+apply_who_we_serve,"ISD places mobility service dogs, 100% free of charge, with people who have physical disabilities and could benefit from a mobility service dog.",Apply
+apply_eligibility,[ISD to confirm],"Apply, eligibility details"
+apply_timing_note,"ISD does not go first come, first served, and we don't quote wait times. Each year we match applicants with dogs nearing the end of training, based on each applicant's needs. We encourage you to also apply to other service dog programs.",Apply
+apply_step_1,Apply: Fill out ISD's online application.,"Apply timeline, step 1"
+apply_step_2,Review: The ISD team reviews your application.,"Apply timeline, step 2"
+apply_step_3,Waitlist: Approved applicants join the waitlist.,"Apply timeline, step 3"
+apply_step_4,"Matching: Each year, ISD matches applicants with dogs nearing the end of training.","Apply timeline, step 4"
+apply_step_5,Placement: You and your new service dog begin working together.,"Apply timeline, step 5"
+puppy_raiser_text,"Puppy raisers care for an ISD dog in training in their own home. Our dogs are in the program from about 8 weeks to 2.5 years old, and a placement usually lasts 2 to 6 months. Puppy raisers must live in the Champaign-Urbana area.",Get Involved
+student_membership_text,UIUC students can join ISD as members. We recruit new members in the fall semester only.,Get Involved
+volunteer_text,"We have open volunteer roles. To apply, email your resume.",Get Involved
+partner_text,Other RSOs and local groups can team up with ISD to co-host a fundraiser or a Pet-A-Pup style event.,Get Involved
+events_empty_text,No upcoming events right now. Follow us on Instagram for updates.,Events and Home when there are no events
+chatbot_disclaimer,"Answers come from ISD's FAQ, not a live person. For anything else, email us.",Ask ISD

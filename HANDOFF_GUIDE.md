@@ -1,0 +1,160 @@
+# ISD Website: Guide for Board Members
+
+This guide is for whoever keeps the Illini Service Dogs website up to date. You don't need to know how to code. **Almost everything on the site comes from one Google Sheet.** Edit the Sheet and the website updates itself.
+
+---
+
+## Where everything lives
+
+Fill this table in at handoff and keep it current when board members change.
+
+| What | Where | Who has access |
+|---|---|---|
+| The website | `https://__________.streamlit.app` | Anyone (it's public) |
+| The Google Sheet (all the words, dogs, events) | Link: `__________` | ISD Google account + board members |
+| Dog photos and the code (GitHub) | `https://github.com/__________` | ISD GitHub account + tech lead |
+| Hosting (Streamlit Community Cloud) | https://share.streamlit.io | Sign in with the ISD GitHub account |
+
+**At least two board members should always have access to each account.** When someone graduates, add their replacement before removing them.
+
+---
+
+## The golden rules
+
+1. **Don't rename the tabs** (`Dogs`, `FAQ`, `Events`, `SponsorTiers`, `SiteText`) and **don't change the top row** (the column names). The site finds information by those names.
+2. **One row = one thing.** One dog, one question, one event.
+3. **Not sure yet? Type `[ISD to confirm]`.** Anything that says that (or `$XX`) stays hidden from visitors until you replace it, and the Content Check page lists it so nothing gets forgotten.
+4. **Changes show up within 10 minutes.** You don't need to save anything or press a button. Google Sheets saves automatically.
+
+---
+
+## Add a new dog
+
+**Step 1. Upload the photo (about 2 minutes)**
+
+1. Name the photo with the dog's name in lowercase, with no spaces, for example `luna.jpg`.
+2. Go to the GitHub link in the table above and sign in.
+3. Click the **images** folder.
+4. Click **Add file → Upload files** and drag in the photo.
+5. Scroll down and click the green **Commit changes** button.
+
+The photo is live in a minute or two.
+
+**Step 2. Add a row in the Dogs tab**
+
+| Column | What to type | Example |
+|---|---|---|
+| name | The dog's name | Luna |
+| breed | Breed | Labrador Retriever |
+| age | Age, in words | 1 year |
+| bio | One or two friendly sentences | Luna loves tennis balls and is learning to open doors. |
+| training_stage | A number from 1 to 4 (see below) | 1 |
+| photo_file | The exact photo file name from Step 1 | luna.jpg |
+| alt_text | A short description of **what's in the photo**, for visitors who are blind or use screen readers | Black Lab puppy in an orange ISD vest, sitting on grass |
+| instagram_url | Link to her Instagram post or page (optional) | https://instagram.com/... |
+| sponsor_link | A PayPal/Venmo link just for her (optional). Leave blank to send people to the Sponsor page | |
+| status | `in_training` | in_training |
+
+Training stages:
+
+1. Puppy basics
+2. Public access
+3. Advanced mobility tasks
+4. Ready for placement
+
+**Writing good alt text:** describe the photo the way you would over the phone, in one sentence. Mention the dog, what they're doing, and anything notable. Skip "image of" or "photo of".
+
+## When a dog is placed (or retires)
+
+In the Dogs tab, change that dog's **status** to `placed`. The dog moves from "In training" to the "Graduates" section and the Sponsor button goes away. Use `retired` to hide the dog from the site completely. Don't delete the row, so you keep their history.
+
+## Move a dog to the next training stage
+
+Change the number in **training_stage**. The progress bar on their card updates.
+
+---
+
+## Edit or add an FAQ answer
+
+These answers power both the FAQ and the **Ask ISD** chatbot.
+
+- **To edit**, change the text in the **answer** column.
+- **To add**, add a new row with a **question**, an **answer**, and a **category** (`applying`, `donating`, `sponsoring`, `volunteering`, `puppy_raising` or `general`).
+- **The keywords column** is how you teach the chatbot. If people ask something in a way the bot doesn't recognize, add their words here, separated by commas. For example: `cost, price, fee, free, afford`.
+
+If the chatbot isn't sure, it never guesses. It tells the visitor to email ContactUs@illiniservicedogs.com. So if the team keeps getting the same question by email, add it to the FAQ.
+
+The starter FAQ was drafted by the student team from the old website. **Please read every answer once and correct anything that's out of date.**
+
+---
+
+## Post an event
+
+Add a row in the **Events** tab:
+
+| Column | Example |
+|---|---|
+| title | Pet-A-Pup on the Quad |
+| date | 2027-04-18 (year-month-day works best) |
+| start_time | 2:00 PM |
+| location | Main Quad, near Foellinger |
+| description | Meet our dogs in training! Donations welcome. |
+| link | Optional: Facebook event, sign-up form, etc. |
+
+Events show up in date order. **Once the date has passed, the event hides itself.** You can delete old rows whenever you want, or leave them.
+
+---
+
+## Change sponsorship levels
+
+In the **SponsorTiers** tab, each row is one level, for example "Food for a month, $50".
+
+- **amount**: the price, like `$50`. A level with `$XX` stays hidden.
+- **covers**: what the money pays for.
+- **payment_link**: the PayPal or Venmo link for that level. If it's blank, the button uses ISD's main PayPal link.
+- **sort_order**: 1 shows first, 2 second, and so on.
+
+## Change any other words on the site
+
+Every paragraph, email address and link is in the **SiteText** tab. Find the row (the **where_it_shows** column tells you which page it's on) and edit the **value** column. Don't change the **key** column.
+
+---
+
+## Something looks wrong? Check the Content Check page
+
+Open the website and click **Content Check (board members)**, the last item in the menu. It tells you in plain English:
+
+- whether the site is reading the Google Sheet or a backup copy
+- rows it skipped and why (for example, an event date it couldn't read)
+- dogs missing a photo or alt text
+- anything still marked `[ISD to confirm]`
+
+Fix the problem in the Sheet, then click **Check the Sheet again now** on that page.
+
+**If a tab says "showing the backup copy":** the site couldn't read the Sheet, so it's showing the last saved version. Visitors still see a working site. The usual causes are that someone renamed a tab or a column, or the Sheet was unpublished (**File → Share → Publish to web** should still be on).
+
+## The site is "asleep"
+
+The free hosting puts the site to sleep when nobody has visited for a while. If you see a "This app has gone to sleep" message, click the button and wait about 30 seconds. Nothing is broken.
+
+---
+
+## Once a semester (5 minutes)
+
+- [ ] Read the FAQ and fix anything outdated
+- [ ] Update training stages and mark placed dogs
+- [ ] Open Content Check and clear anything on it
+- [ ] Make sure two current board members can sign in to the Google, GitHub and Streamlit accounts
+- [ ] Ask your tech person to refresh the backup copy (README: "Refreshing the backup")
+
+---
+
+## Ideas for later
+
+- **Newsletter:** set up a free Mailchimp or Google Form signup and put its link in SiteText → `newsletter_url`. A "Stay in the loop" button then appears on Get Involved.
+- **More dog photos:** good photos are the biggest reason people sponsor. Aim for one clear, bright photo per dog.
+- **Link from the main website:** add a big "Meet our dogs and sponsor one" button on illiniservicedogs.com that points here. It brings visitors and keeps the site from falling asleep.
+- **Impact numbers:** fill in SiteText → `impact_line` (for example, how many dogs ISD has placed). Specific numbers help donations.
+- **Sponsorship levels:** set real amounts in the SponsorTiers tab.
+
+Questions about the code go to whoever is listed as tech lead in the table at the top. Original builders: Ved Kulkarni and Nithin Raj (BUS 401, Fall 2026).

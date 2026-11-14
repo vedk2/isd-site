@@ -1,0 +1,16 @@
+# Site colors live here, and only here.
+# To change a color, edit the hex code and redeploy (or just commit on GitHub).
+[theme]
+base = "light"
+primaryColor = "#FF5F05"          # Illinois orange: buttons, progress bars, highlights
+textColor = "#13294B"             # Illinois navy: all body text
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F4F1EC"  # warm light gray for cards and the sidebar
+linkColor = "#13294B"
+linkUnderline = true
+
+[client]
+toolbarMode = "viewer"
+
+[browser]
+gatherUsageStats = false
