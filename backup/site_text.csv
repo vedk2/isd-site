@@ -16,13 +16,13 @@ tech_email,tech_support@illiniservicedogs.com,Apply
 address,"Illini Service Dogs, 1206 S. Fourth Street, Huff Hall, Room 2005, Champaign, IL 61820","Footer, Sponsor & Donate"
 facebook_url,https://www.facebook.com/IlliniServiceDogs,Footer
 instagram_url,https://instagram.com/illiniservicedogs/,"Footer, Events"
-paypal_url,[ISD to confirm],Sponsor & Donate button
-venmo_url,[ISD to confirm],Sponsor & Donate button
+paypal_url,,PASTE LINK: ISD's PayPal donate link (Sponsor & Donate button; hidden while blank)
+venmo_url,,PASTE LINK: ISD's Venmo link (Sponsor & Donate button; hidden while blank)
 amazon_wishlist_url,https://a.co/d0Be1a6,Sponsor & Donate button
 check_payable_to,Illini Service Dogs,Sponsor & Donate
 tax_letter_note,Gifts of $250 or more receive an acknowledgement letter for your tax records.,Sponsor & Donate
-application_url,[ISD to confirm],Apply button
-puppy_raiser_form_url,[ISD to confirm],Get Involved button
+application_url,,PASTE LINK: service dog application form (Apply button; hidden while blank)
+puppy_raiser_form_url,,PASTE LINK: Puppy Raiser form (Get Involved button; hidden while blank)
 newsletter_url,,Get Involved (section hides when blank)
 response_time,[ISD to confirm],"Footer, e.g. 'We reply within 5 business days'"
 apply_who_we_serve,"ISD places mobility service dogs, 100% free of charge, with people who have physical disabilities and could benefit from a mobility service dog.",Apply
