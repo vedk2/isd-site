@@ -11,7 +11,7 @@ Fill this table in at handoff and keep it current when board members change.
 | What | Where | Who has access |
 |---|---|---|
 | The website | https://illini-service-dogs.streamlit.app | Anyone (it's public) |
-| The Google Sheet (all the words, dogs, events) | Link: `__________` | ISD Google account + board members |
+| The Google Sheet (all the words, dogs, events) | [ISD Website Content](https://docs.google.com/spreadsheets/d/1dn6-9QMwlQ5c0LjPRj3ccA8jU-TPiEVQ0wwHkWJNUWY/edit) | Owner: ISD Google account (transfer at handoff). Editors: board members |
 | Dog photos and the code (GitHub) | https://github.com/vedk2/isd-site (move to an ISD account at handoff) | ISD GitHub account + tech lead |
 | Hosting (Streamlit Community Cloud) | https://share.streamlit.io (app name: illini-service-dogs) | Sign in with the GitHub account that owns the code |
 
@@ -24,7 +24,8 @@ Fill this table in at handoff and keep it current when board members change.
 1. **Don't rename the tabs** (`Dogs`, `FAQ`, `Events`, `SponsorTiers`, `SiteText`) and **don't change the top row** (the column names). The site finds information by those names.
 2. **One row = one thing.** One dog, one question, one event.
 3. **Not sure yet? Type `[ISD to confirm]`.** Anything that says that (or `$XX`) stays hidden from visitors until you replace it, and the Content Check page lists it so nothing gets forgotten.
-4. **Changes show up within 10 minutes.** You don't need to save anything or press a button. Google Sheets saves automatically.
+4. **Give board members edit access by name** (Share → add their email → Editor). Don't change General access.
+5. **Changes show up within 10 minutes.** You don't need to save anything or press a button. Google Sheets saves automatically.
 
 ---
 
@@ -131,7 +132,7 @@ Open the website and click **Content Check (board members)**, the last item in t
 
 Fix the problem in the Sheet, then click **Check the Sheet again now** on that page.
 
-**If a tab says "showing the backup copy":** the site couldn't read the Sheet, so it's showing the last saved version. Visitors still see a working site. The usual causes are that someone renamed a tab or a column, or the Sheet was unpublished (**File → Share → Publish to web** should still be on).
+**If a tab says "showing the backup copy":** the site couldn't read the Sheet, so it's showing the last saved version. Visitors still see a working site. The usual causes are that someone renamed a tab or a column, or the Sheet's sharing was changed. In the Sheet, **Share → General access** must stay **Anyone with the link → Viewer**. Viewer only: never give "Editor" to anyone with the link.
 
 ## The site is "asleep"
 

@@ -1,9 +1,9 @@
 """Settings that rarely change.
 
-The Google Sheet links normally live in Streamlit secrets (see
-.streamlit/secrets.toml.example) so they can be changed from the Streamlit Cloud
-dashboard without touching code. The constants below are only used when no
-secret is set. Leaving them blank is fine: the site then uses backup/.
+The Google Sheet links below are the defaults. A Streamlit secret with the same
+name (see .streamlit/secrets.toml.example) overrides them, so a link can be
+changed from the Streamlit Cloud dashboard without touching code. If a link is
+blank or broken, the site uses backup/ instead.
 """
 
 from pathlib import Path
@@ -12,13 +12,16 @@ ROOT = Path(__file__).parent
 BACKUP_DIR = ROOT / "backup"
 IMAGES_DIR = ROOT / "images"
 
-# Fallback "Publish to web -> CSV" links, one per Sheet tab.
+# ISD's content Sheet: https://docs.google.com/spreadsheets/d/1dn6-9QMwlQ5c0LjPRj3ccA8jU-TPiEVQ0wwHkWJNUWY/edit
+# Each link downloads one tab as CSV. The Sheet is shared "Anyone with the link: Viewer".
+# A Streamlit secret with the same name overrides these (see secrets.toml.example).
+_SHEET = "https://docs.google.com/spreadsheets/d/1dn6-9QMwlQ5c0LjPRj3ccA8jU-TPiEVQ0wwHkWJNUWY/export?format=csv&gid="
 SHEET_URLS = {
-    "dogs": "",
-    "faq": "",
-    "events": "",
-    "sponsor_tiers": "",
-    "site_text": "",
+    "dogs": _SHEET + "914704615",
+    "faq": _SHEET + "1304248444",
+    "events": _SHEET + "305217368",
+    "sponsor_tiers": _SHEET + "840687152",
+    "site_text": _SHEET + "1534344510",
 }
 
 # How long (seconds) the site remembers the Sheet before checking for edits.

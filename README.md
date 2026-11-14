@@ -4,6 +4,8 @@ A Streamlit site for [Illini Service Dogs](https://www.illiniservicedogs.com) (I
 
 **Live site:** https://illini-service-dogs.streamlit.app (Streamlit Community Cloud, deployed from `main`, Python 3.11)
 
+**Content Sheet:** [ISD Website Content](https://docs.google.com/spreadsheets/d/1dn6-9QMwlQ5c0LjPRj3ccA8jU-TPiEVQ0wwHkWJNUWY/edit)
+
 **Board members:** you don't need this file. Read [HANDOFF_GUIDE.md](HANDOFF_GUIDE.md) instead.
 
 ## The one design rule
@@ -28,9 +30,9 @@ pip install -r requirements-dev.txt
 streamlit run app.py
 ```
 
-Open http://localhost:8501. With no Sheet links configured, the site runs entirely from `backup/`.
+Open http://localhost:8501. The site reads ISD's live Sheet using the links in `config.SHEET_URLS`. If Google is unreachable, it uses `backup/`.
 
-To test against the live Sheet, copy `.streamlit/secrets.toml.example` to `.streamlit/secrets.toml` and paste in the published CSV links. `secrets.toml` is git-ignored.
+To point at a different Sheet without editing code, copy `.streamlit/secrets.toml.example` to `.streamlit/secrets.toml` and change the links there. `secrets.toml` is git-ignored.
 
 ## Project layout
 
@@ -47,7 +49,7 @@ images/             dog photos, referenced by file name from the Dogs tab
 scripts/refresh_backup.py
 tests/
 .streamlit/config.toml           theme colors (the one place to change them)
-.streamlit/secrets.toml.example  where the Sheet links go
+.streamlit/secrets.toml.example  optional override for the Sheet links
 ```
 
 ## How content loading works
@@ -83,7 +85,7 @@ python scripts/refresh_backup.py
 git add backup && git commit -m "Refresh content backup"
 ```
 
-The script reads the links from `.streamlit/secrets.toml` and only overwrites a tab that downloads cleanly with the right columns.
+The script uses the same links as the site (`.streamlit/secrets.toml` if present, otherwise `config.py`) and only overwrites a tab that downloads cleanly with the right columns.
 
 ## The chatbot
 
@@ -106,25 +108,37 @@ pytest
 - `test_chatbot.py`: 22 realistic questions reach the right FAQ entry, 6 off-topic ones fall below the threshold.
 - `test_pages.py`: every page renders without errors (via `streamlit.testing.AppTest`), once with the placeholder seed content and once with fully filled-in content.
 
+Tests never touch the live Sheet: `tests/conftest.py` blanks the links so everything runs from `backup/` or a temp copy.
+
 ## Deploy (Streamlit Community Cloud, free)
 
 1. Push this folder to a GitHub repo **owned by an ISD account** (for example the tech_support@ Google/GitHub login), not a student's personal account.
 2. At https://share.streamlit.io, sign in with that GitHub account and choose **Create app**. Pick the repo, branch `main`, main file `app.py`, and Python 3.11 or newer.
-3. Under **Advanced settings → Secrets**, paste the `[sheets]` block from `secrets.toml.example` with the real published CSV links.
+3. No secrets are required, because the Sheet links are in `config.py`. To override them, paste a `[sheets]` block (see `secrets.toml.example`) under **Advanced settings → Secrets**.
 4. Deploy. Every push to `main` redeploys automatically.
 
-Changing a Sheet link later only takes an edit in **App → Settings → Secrets**, with no code change.
+To switch Sheets later without a code change, add the new links in **App → Settings → Secrets**.
 
 **Handing over ownership:** transfer the repo on GitHub (**Settings → Transfer ownership**) to the ISD account. Then have ISD sign in to share.streamlit.io with that account and redeploy from the transferred repo. Use the same app URL after deleting the old app, or a new one. Finally, remove the student accounts.
 
 Free apps go to sleep after a stretch with no visitors and take a few seconds to wake up. Linking the site from illiniservicedogs.com keeps it busier.
 
-## Connecting the Google Sheet
+## The Google Sheet
 
-1. Create a Google Sheet in ISD's Google account with five tabs named exactly `Dogs`, `FAQ`, `Events`, `SponsorTiers`, `SiteText`.
-2. For each tab, open **File → Import → Upload**, choose the matching file from `backup/`, and pick **Replace current sheet**.
-3. Open **File → Share → Publish to web**. Choose a tab and **Comma-separated values (.csv)**, then click **Publish**. Copy the link. Repeat for all five tabs, since each tab gets its own link (the `gid=` part differs).
-4. Put the five links into Streamlit secrets (see Deploy, step 3) or your local `.streamlit/secrets.toml`.
-5. Open the Content Check page. All five tabs should say "loaded live".
+ISD's content lives in [ISD Website Content](https://docs.google.com/spreadsheets/d/1dn6-9QMwlQ5c0LjPRj3ccA8jU-TPiEVQ0wwHkWJNUWY/edit). It has a "Start here" tab for editors, plus the five tabs the site reads.
 
-Published links are read-only and public. That's fine because everything in the Sheet is already public website content. Never put private information in this Sheet.
+**How the site reads it:** the Sheet is shared as **Anyone with the link: Viewer**, and each tab is downloaded as CSV from
+
+```
+https://docs.google.com/spreadsheets/d/<SHEET_ID>/export?format=csv&gid=<TAB_GID>
+```
+
+These links are in `config.SHEET_URLS`. Edits show up on the site as soon as the 10-minute cache expires, with no publish step. Anyone with the link can view the Sheet, which is fine because everything in it is already public on the website. **Never put private information in this Sheet.**
+
+**If you ever rebuild the Sheet:**
+1. Create a Google Sheet with tabs named exactly `Dogs`, `FAQ`, `Events`, `SponsorTiers`, `SiteText`. For each one, use **File → Import → Upload** with the matching file from `backup/` and choose **Replace current sheet**.
+2. Click **Share → General access → Anyone with the link → Viewer**.
+3. Open each tab and copy the `gid=` number from the address bar. Put the five links in `config.SHEET_URLS`, or in Streamlit secrets to change them without a code change.
+4. Open the Content Check page. All five tabs should say "loaded live".
+
+**Ownership:** the Sheet was created in Ved Kulkarni's Google Drive. At handoff, use **Share → (ISD account) → Transfer ownership** to move it to ISD's Google account. The file ID and links stay the same, so nothing on the site needs to change.

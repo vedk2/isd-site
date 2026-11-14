@@ -57,6 +57,7 @@ def main() -> int:
             failures += 1
             continue
         target = config.BACKUP_DIR / spec.backup_file
+        text = text.replace("\r\n", "\n")
         target.write_text(text if text.endswith("\n") else text + "\n", encoding="utf-8")
         print(f"OK    {spec.sheet_name}: {len(df)} rows -> backup/{spec.backup_file}")
     return 1 if failures else 0
