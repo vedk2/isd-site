@@ -122,3 +122,14 @@ def test_floating_chat_on_other_pages_answers_questions():
 def test_ask_page_has_only_the_full_chat():
     at = run_page(ui.PAGES["ask"])
     assert len(at.chat_input) == 1
+
+
+def test_chat_small_talk_suggestions_and_page_links():
+    at = run_page(ui.PAGES["ask"])
+    at.chat_input[0].set_value("hello").run()
+    assert any("What would you like to know" in m.value for m in at.markdown)
+    at.chat_input[0].set_value("can i sponser a dog").run()
+    assert any("Did you mean" in m.value for m in at.markdown)
+    assert any(b.label == "How do I sponsor a dog?" for b in at.button)
+    at.chat_input[0].set_value("how long is the waitlist").run()
+    assert not at.exception

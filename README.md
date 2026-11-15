@@ -4,7 +4,7 @@ A Streamlit site for [Illini Service Dogs](https://www.illiniservicedogs.com) (I
 
 **Live site:** https://illini-service-dogs.streamlit.app (Streamlit Community Cloud, deployed from `main`, Python 3.11)
 
-**Content Sheet:** [ISD Website Content](https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/edit)
+**Content Sheet:** [ISD Website Content](https://docs.google.com/spreadsheets/d/1ivz6uGEAkoSfOUGJb7VPgHiHCoCm7T0-rO1-WGnRxgo/edit)
 
 **Board members:** you don't need this file. Read [HANDOFF_GUIDE.md](HANDOFF_GUIDE.md) instead.
 
@@ -101,14 +101,24 @@ The script uses the same links as the site (`.streamlit/secrets.toml` if present
 
 ## The chatbot
 
-`chatbot.FaqMatcher` builds a TF-IDF matrix (word unigrams and bigrams, a small suffix stemmer, English stop words) over each FAQ row's question and keywords (weighted 3x) plus its answer. A visitor's question is matched by cosine similarity:
+`chatbot.FaqMatcher` blends two TF-IDF similarities against each FAQ row:
 
-- If the score is at least `config.CHATBOT_THRESHOLD` (0.20), the bot shows the best answer and up to 3 related questions.
-- Otherwise it says it isn't sure and gives the `contact_email` from SiteText.
+- **Word match (70%):** word unigrams and bigrams after stop-word removal and a small suffix stemmer, over the question and keywords (weighted 3x) plus the answer.
+- **Fuzzy match (30%):** 3–5 letter chunks of the question and keywords, so typos like "sponser" or "aply" still land nearby (`config.CHATBOT_FUZZY_WEIGHT`).
 
-The threshold was tuned in `tests/test_chatbot.py` against ISD's real FAQ. Real questions scored 0.22 or higher, and off-topic ones scored 0.17 or lower.
+What the visitor gets depends on the best score:
 
-Known limits of plain word matching: short or ambiguous questions can land on a neighbouring FAQ (for example "how much does it cost me" can match the cost-to-train answer; the right one then appears under "related questions"), and an off-topic question that happens to share a word, like "where can I buy a used car", can occasionally get an answer. If you change the FAQ a lot, rerun the tests. The usual fix for a missed question is adding words to that row's `keywords` cell, not changing code.
+| Score | Reply |
+|---|---|
+| ≥ `CHATBOT_THRESHOLD` (0.25) | The answer, a link to the matching page (by FAQ category, `chat_ui.MORE`), and up to 3 related questions |
+| ≥ `CHATBOT_SUGGEST_THRESHOLD` (0.12) | "Did you mean…?" buttons for the closest questions, plus the contact email |
+| lower | The contact email |
+
+Greetings, thanks, goodbyes and "are you a bot?" get short replies from SiteText (`chatbot_greeting`, `chatbot_thanks`, `chatbot_bye`, `chatbot_about`) instead of a failed match.
+
+Tuning lives in `tests/test_chatbot.py`: 31 real questions (lowest score 0.27), 6 misspelled ones (answered or suggested correctly), and 6 off-topic ones (0.19 or lower). The usual fix for a missed question is adding phrases to that row's `keywords` cell, not changing code. Known limit: an off-topic question that happens to share words with an FAQ (e.g. "where can I buy a used car") can still get an answer.
+
+`chat_ui.py` draws the chat. The Ask ISD page and the pop-up pinned bottom-right on every other page share one conversation; nothing typed is saved.
 
 A paid LLM is deliberately not wired in. If ISD ever wants one, add it as an optional rephrasing step that only runs when a key exists in secrets and only rephrases the matched FAQ answer.
 
@@ -119,7 +129,7 @@ pytest
 ```
 
 - `test_content.py`: backup loads, bad or unreachable links fall back, missing columns don't crash, past events hide, empty and bad rows are handled.
-- `test_chatbot.py`: 28 realistic questions reach the right FAQ entry, 6 off-topic ones fall below the threshold.
+- `test_chatbot.py`: 31 realistic questions reach the right FAQ entry, 6 misspelled ones are answered or suggested correctly, 6 off-topic ones fall below the threshold, plus small-talk detection.
 - `test_pages.py`: every page renders without errors (via `streamlit.testing.AppTest`) with the backup content and with a filled-in copy, has exactly one h1, and has alt text on every image; plus checks that ISD's real content (graduates, leadership, sponsors, news) shows up.
 
 Tests never touch the live Sheet: `tests/conftest.py` blanks the links so everything runs from `backup/` or a temp copy.
@@ -139,7 +149,7 @@ Free apps go to sleep after a stretch with no visitors and take a few seconds to
 
 ## The Google Sheet
 
-ISD's content lives in [ISD Website Content](https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/edit). It has a "Start here" tab for editors, plus the five tabs the site reads.
+ISD's content lives in [ISD Website Content](https://docs.google.com/spreadsheets/d/1ivz6uGEAkoSfOUGJb7VPgHiHCoCm7T0-rO1-WGnRxgo/edit). It has a "Start here" tab for editors, plus the ten tabs the site reads.
 
 **How the site reads it:** the Sheet is shared as **Anyone with the link: Viewer**, and each tab is downloaded as CSV from
 

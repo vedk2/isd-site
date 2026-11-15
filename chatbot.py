@@ -61,23 +61,35 @@ class Match:
 
 
 class FaqMatcher:
+    """Two signals, blended:
+    - word match: TF-IDF over stemmed words (question + keywords count 3x, answer 1x)
+    - fuzzy match: TF-IDF over 3-5 letter chunks of the question + keywords, so typos
+      like "sponser" or "aply" still land near the right entry.
+    """
+
     def __init__(self, faq: pd.DataFrame, threshold: float | None = None):
         self.faq = faq.reset_index(drop=True)
         self.threshold = config.CHATBOT_THRESHOLD if threshold is None else threshold
+        self.suggest_threshold = config.CHATBOT_SUGGEST_THRESHOLD
         self.vectorizer = None
         if self.faq.empty:
             return
-        # The question and keywords count three times as much as the answer: they say
-        # what the entry is about, while answers mention lots of side details.
         docs = [f"{(r.question + ' ' + r.keywords + ' ') * 3}{r.answer}" for r in self.faq.itertuples()]
         self.vectorizer = TfidfVectorizer(tokenizer=tokenize, token_pattern=None, lowercase=False,
                                           ngram_range=(1, 2), sublinear_tf=True)
         self.matrix = self.vectorizer.fit_transform(docs)
+        topics = [" ".join(tokenize(f"{r.question} {r.keywords}")) for r in self.faq.itertuples()]
+        self.fuzzy = TfidfVectorizer(analyzer="char_wb", ngram_range=(3, 5), sublinear_tf=True)
+        self.fuzzy_matrix = self.fuzzy.fit_transform(topics)
 
     def rank(self, question: str) -> list[Match]:
-        if self.vectorizer is None or not tokenize(question):
+        words = tokenize(question)
+        if self.vectorizer is None or not words:
             return []
-        scores = cosine_similarity(self.vectorizer.transform([question]), self.matrix)[0]
+        word_score = cosine_similarity(self.vectorizer.transform([question]), self.matrix)[0]
+        fuzzy_score = cosine_similarity(self.fuzzy.transform([" ".join(words)]), self.fuzzy_matrix)[0]
+        w = config.CHATBOT_FUZZY_WEIGHT
+        scores = (1 - w) * word_score + w * fuzzy_score
         order = scores.argsort()[::-1]
         return [
             Match(self.faq.at[i, "question"], self.faq.at[i, "answer"], self.faq.at[i, "category"], float(scores[i]))
@@ -96,6 +108,30 @@ class FaqMatcher:
                           if c == best.category and q != best.question and q not in related]
             related += same_topic[: 3 - len(related)]
         return best, related
+
+    def suggestions(self, question: str, limit: int = 3) -> list[str]:
+        """When the bot isn't confident: the closest FAQ questions, for a "Did you mean...?" list."""
+        ranked = self.rank(question)
+        if not ranked or ranked[0].score >= self.threshold:
+            return []
+        return [m.question for m in ranked[:limit] if m.score >= self.suggest_threshold]
+
+
+_SMALL_TALK = {
+    "greeting": re.compile(r"^(hi+|hello+|hey+|howdy|good (morning|afternoon|evening)|yo|sup|what'?s up)[\s!.?]*$"),
+    "thanks": re.compile(r"^(thanks?( you)?( so much)?|thank you( so much)?|thx|ty|appreciate it|great,? thanks?)[\s!.?]*$"),
+    "bye": re.compile(r"^(bye+|goodbye|see (you|ya)|later|that'?s all)[\s!.?]*$"),
+    "bot": re.compile(r"^(who|what) are you\??$|^are you (a )?(bot|robot|real|human|ai)\??$"),
+}
+
+
+def small_talk(message: str) -> str:
+    """"greeting", "thanks", "bye", "bot" or "" for a short social message."""
+    text = message.strip().lower()
+    for kind, pattern in _SMALL_TALK.items():
+        if pattern.match(text):
+            return kind
+    return ""
 
 
 def fallback_message(contact_email: str) -> str:

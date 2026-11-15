@@ -64,7 +64,7 @@ SITE_TEXT_KEYS = (
     "apply_who_we_serve", "apply_eligibility", "apply_timing_note",
     "apply_step_1", "apply_step_2", "apply_step_3", "apply_step_4", "apply_step_5",
     "puppy_raiser_text", "puppy_photo", "puppy_photo_alt", "student_membership_text", "volunteer_text", "partner_text",
-    "events_empty_text", "chatbot_disclaimer",
+    "events_empty_text", "chatbot_disclaimer", "chatbot_greeting", "chatbot_thanks", "chatbot_bye", "chatbot_about",
     "home_dogs_lead", "home_callout_title", "dogs_intro", "graduates_intro", "gallery_intro", "giving_levels_intro", "apply_form_note", "involved_intro", "events_intro", "news_intro", "story_subtitle", "faq_intro", "vest_intro", "vest_photo", "vest_photo_alt", "vest_body", "partner_idea_1", "partner_idea_2", "qr_file",
 )
 

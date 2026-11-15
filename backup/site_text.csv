@@ -88,3 +88,7 @@ partner_idea_1,"Co-host a Pet-A-Pup: Bring our dogs in training to your RSO's ev
 partner_idea_2,"Fundraise together: Team up on a fundraiser and put the proceeds toward food, vet care and training for a dog in our program.","Get Involved, partner idea 2 (Title: text)"
 partner_idea_3,,"Get Involved, partner idea 3 (optional; Title: text)"
 qr_file,qr-website.png,"Get Involved, QR code image (file in static/images)"
+chatbot_greeting,"Hi! I can answer questions about applying for a service dog, donating, sponsoring, puppy raising and volunteering with ISD. What would you like to know?","Ask ISD, reply to 'hi'"
+chatbot_thanks,You're welcome! Anything else I can help with?,"Ask ISD, reply to 'thanks'"
+chatbot_bye,"Thanks for stopping by, and thank you for supporting Illini Service Dogs!","Ask ISD, reply to 'bye'"
+chatbot_about,"I'm ISD's FAQ helper. I'm not a live person: I match your question to answers from ISD's FAQ. For anything else, email us.","Ask ISD, reply to 'are you a bot?'"

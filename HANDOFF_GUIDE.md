@@ -11,7 +11,7 @@ Fill this table in at handoff and keep it current when board members change.
 | What | Where | Who has access |
 |---|---|---|
 | The website | https://illini-service-dogs.streamlit.app | Anyone (it's public) |
-| The Google Sheet (all the words, dogs, events) | [ISD Website Content](https://docs.google.com/spreadsheets/d/1z5ZwdqOOt_CUElizcebk31hHykSxfuWgVYExruFfpFA/edit) | Owner: ISD Google account (transfer at handoff). Editors: board members |
+| The Google Sheet (all the words, dogs, events) | [ISD Website Content](https://docs.google.com/spreadsheets/d/1ivz6uGEAkoSfOUGJb7VPgHiHCoCm7T0-rO1-WGnRxgo/edit) | Owner: ISD Google account (transfer at handoff). Editors: board members |
 | Dog photos and the code (GitHub) | https://github.com/vedk2/isd-site (move to an ISD account at handoff) | ISD GitHub account + tech lead |
 | Hosting (Streamlit Community Cloud) | https://share.streamlit.io (app name: illini-service-dogs) | Sign in with the GitHub account that owns the code |
 

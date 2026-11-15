@@ -93,3 +93,38 @@ def test_fallback_uses_contact_email():
 
 def test_tokenize_matches_word_forms():
     assert tokenize("donating")[0] == tokenize("donation")[0] == tokenize("donate")[0]
+
+
+# Misspelled questions: the bot either answers correctly or offers the right entry under "Did you mean".
+TYPOS = [
+    ("how do i aply for a servise dog", "How do I get a service dog?"),
+    ("can i sponser a dog", "How do I sponsor a dog?"),
+    ("puppy raiser requirments", "How do I become a puppy raiser?"),
+    ("whats the wating list", "How long is your waiting list?"),
+    ("tax reciept", "Will I get a receipt for my taxes?"),
+    ("volunter roles", "Are there volunteer or leadership roles open?"),
+]
+
+
+@pytest.mark.parametrize("question,expected", TYPOS)
+def test_typos_still_find_the_right_entry(bot, question, expected):
+    best, _ = bot.answer(question)
+    offered = [best.question] if best else bot.suggestions(question)
+    assert expected in offered, f"answer/suggestions were {offered}"
+
+
+def test_confident_answers_get_no_suggestions(bot):
+    assert bot.suggestions("how long is the waitlist") == []
+
+
+def test_gibberish_gets_no_suggestions(bot):
+    assert bot.suggestions("asdfgh qwerty") == []
+
+
+@pytest.mark.parametrize("message,kind", [
+    ("hi", "greeting"), ("Hello!", "greeting"), ("thanks so much", "thanks"), ("bye", "bye"),
+    ("are you a bot?", "bot"), ("hi how do I apply", ""), ("thanks for the info on puppies", ""),
+])
+def test_small_talk(message, kind):
+    from chatbot import small_talk
+    assert small_talk(message) == kind
