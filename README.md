@@ -41,6 +41,8 @@ app.py              navigation, shared header and footer
 config.py           Sheet link fallbacks, cache time, chatbot threshold, training stage names
 content.py          loads + cleans every Sheet tab, falls back to backup/
 chatbot.py          FAQ matcher (TF-IDF + cosine similarity)
+chat_ui.py          the chat itself: the Ask ISD page and the pop-up pinned bottom-right on every other page
+                    (one shared conversation; nothing typed is saved)
 ui.py               shared HTML blocks: hero, cards, grids, people, logos, gallery, header, footer
 style.py            all custom CSS (fonts, cards, grids, mobile layout) in one place
 static/fonts/       Nunito heading font, hosted with the site (no Google Fonts request)

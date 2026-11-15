@@ -53,6 +53,24 @@ def apply() -> None:
             outline: 3px solid var(--isd-navy) !important; outline-offset: 2px;
         }}
 
+        /* ---- Ask ISD pop-up, pinned to the bottom-right corner on every page ---- */
+        .st-key-isd-chat-fab {{
+            position: fixed !important; right: 22px; bottom: 22px; z-index: 999990;
+            width: auto !important;
+        }}
+        .st-key-isd-chat-fab button {{ box-shadow: 0 8px 24px rgba(19, 41, 75, 0.28); padding: 0.55rem 1.1rem; }}
+        /* The site's only pop-up is the chat: anchor it just above the button so it never runs off-screen. */
+        [data-testid="stPopoverBody"] {{
+            transform: none !important; top: auto !important; left: auto !important;
+            right: 22px !important; bottom: 76px !important;
+            width: min(400px, calc(100vw - 32px)) !important; max-width: none !important;
+            max-height: calc(100vh - 120px) !important; overflow-y: auto;
+        }}
+        @media (max-width: 760px) {{
+            .st-key-isd-chat-fab {{ right: 14px; bottom: 14px; }}
+            [data-testid="stPopoverBody"] {{ right: 16px !important; bottom: 66px !important; }}
+        }}
+
         /* ---- Header and footer ---- */
         .isd-header {{ display: flex; align-items: center; gap: 14px; padding: 6px 0 14px;
             border-bottom: 1px solid rgba(19,41,75,0.12); margin-bottom: 8px; }}

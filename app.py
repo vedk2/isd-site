@@ -7,6 +7,7 @@ Sheet (see content.py) and the static/images folder.
 
 import streamlit as st
 
+import chat_ui
 import style
 import ui
 
@@ -43,3 +44,5 @@ current = st.navigation(nav, position="top")
 ui.header()
 current.run()
 ui.footer()
+if current.url_path != "ask":  # the Ask ISD page already shows the full chat
+    chat_ui.floating()

@@ -109,3 +109,16 @@ def test_chatbot_answers_and_falls_back():
     assert any("no cost" in m.value for m in at.markdown)
     at.chat_input[0].set_value("best pizza near campus").run()
     assert any("ContactUs@illiniservicedogs.com" in m.value for m in at.markdown)
+
+
+def test_floating_chat_on_other_pages_answers_questions():
+    at = run_page(ui.PAGES["dogs"])
+    assert len(at.chat_input) == 1, "the pop-up chat should be on every page except Ask ISD"
+    at.chat_input[0].set_value("is there a fee to get a service dog").run()
+    assert not at.exception
+    assert any("no cost" in m.value for m in at.markdown)
+
+
+def test_ask_page_has_only_the_full_chat():
+    at = run_page(ui.PAGES["ask"])
+    assert len(at.chat_input) == 1
